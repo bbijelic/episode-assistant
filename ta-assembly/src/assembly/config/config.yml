@@ -1,0 +1,34 @@
+# Server configuration
+server:
+  applicationConnectors:
+  - type: http
+    port: ${service.app.port}
+  adminConnectors:
+  - type: http
+    port: ${service.admin.port}
+  requestLog:
+    appenders:
+      - type: file
+        threshold: ${logging.request.threshold}
+        currentLogFilename: ${path.base}/logs/requests.log
+        archivedLogFilenamePattern: ${path.base}/logs/requests-%d.log
+        archive: ${logging.request.archive}
+        archivedFileCount: ${logging.request.archive.filecount}
+        timeZone: ${logging.request.timezone}
+
+# Logging configuration
+logging:
+  level: ${logging.level}
+  loggers:
+    org.hibernate: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: DEBUG
+  appenders:
+    - type: file
+      threshold: ${logging.level}
+      currentLogFilename: ${path.base}/logs/service.log
+      archivedLogFilenamePattern: ${path.base}/service-%d.log
+      archive: ${logging.archive}
+      archivedFileCount: ${logging.archive.filecount}
+      timeZone: ${logging.timezone}
+      logFormat: "${logging.pattern}"

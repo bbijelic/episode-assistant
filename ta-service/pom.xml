@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>com.github.bbijelic</groupId>
+        <artifactId>torrent-assistant</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+	<artifactId>torrent-assistant-service</artifactId>
+	<packaging>jar</packaging>
+	
+	<name>Torrent Assistant : Service</name>
+	<description>Torrent Assistant Service Module</description>
+		
+	<dependencies>
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>${version.dropwizard}</version>
+        </dependency>	
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${version.apache.commons.io}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${version.xstream}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ogce</groupId>
+            <artifactId>xpp3</artifactId>
+            <version>${version.xpp3}</version>
+        </dependency>
+        <dependency>
+            <groupId>xmlpull</groupId>
+            <artifactId>xmlpull</artifactId>
+            <version>${version.xmlpull}</version>
+        </dependency>
+    </dependencies>
+	
+</project>
