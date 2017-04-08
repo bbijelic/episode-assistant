@@ -6,28 +6,18 @@
         <artifactId>episode-assistant</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-	<artifactId>episode-assistant-service</artifactId>
+	<artifactId>episode-assistant-config</artifactId>
 	<packaging>jar</packaging>
 	
-	<name>Episode Assistant : Service</name>
-	<description>Episode Assistant Service Module</description>
-		
-	<dependencies>
+	<name>Episode Assistant : Config</name>
+	<description>Episode Assistant Service Configuration Module</description>
+
+    <dependencies>
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
             <version>${version.dropwizard}</version>
         </dependency>	
-        <dependency>
-            <groupId>com.github.bbijelic</groupId>
-            <artifactId>episode-assistant-config</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.bbijelic</groupId>
-            <artifactId>episode-assistant-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
-	
+
 </project>

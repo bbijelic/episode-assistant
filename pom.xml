@@ -74,8 +74,11 @@
 	</dependencies>
 	
 	<modules>
+	   <module>core</module>
+	   <module>config</module>
 	   <module>service</module>
 	   <module>assembly</module>
+	   <module>providers</module>
 	</modules>
 	
 	<build>

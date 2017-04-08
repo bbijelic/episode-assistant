@@ -6,7 +6,7 @@
         <artifactId>episode-assistant</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-	<artifactId>assembly</artifactId>
+	<artifactId>episode-assistant-assembly</artifactId>
 	<packaging>pom</packaging>
 	
 	<name>Episode Assistant : Assembly</name>
