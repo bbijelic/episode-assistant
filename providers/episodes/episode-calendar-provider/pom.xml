@@ -12,4 +12,30 @@
 	<name>Episode Assistant : Providers : Episodes : EpisodeCalendar.com Provider</name>
 	<description>EpisodeCalendar.com provider module</description>
 
+	<dependencies>
+		<dependency>
+			<groupId>com.github.bbijelic</groupId>
+			<artifactId>episode-assistant-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>rome</groupId>
+			<artifactId>rome</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+
+		<dependency>
+			<scope>test</scope>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+	</dependencies>
+
 </project>
