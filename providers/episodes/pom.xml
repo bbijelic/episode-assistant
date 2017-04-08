@@ -12,4 +12,8 @@
 	<name>Episode Assistant : Providers : Episodes</name>
 	<description>Episode Assistant Service Episodes Module</description>
 
+	<modules>
+		<module>episode-calendar-provider</module>
+	</modules>
+
 </project>
