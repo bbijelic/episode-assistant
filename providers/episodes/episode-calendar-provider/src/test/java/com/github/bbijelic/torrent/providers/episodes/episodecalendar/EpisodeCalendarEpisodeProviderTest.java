@@ -51,16 +51,15 @@ public class EpisodeCalendarEpisodeProviderTest {
 		try {
 
 			URL rssUrl = getClass().getClassLoader().getResource("rss_example.xml");
-			
+
 			Properties config = new Properties();
-			config.put(EpisodeCalendarEpisodeProvider.PROPERTIES_RRS_LINK_PARAM_KEY,
-					rssUrl.toString());
+			config.put(EpisodeCalendarEpisodeProvider.PROPERTIES_RRS_LINK_PARAM_KEY, rssUrl.toString());
 
 			EpisodesProvider provider = new EpisodeCalendarEpisodeProvider();
 			Set<EpisodeBatch> days = provider.getEpisodes(config);
 
-			assertEquals(27, days.size());
-			
+			assertEquals(6, days.size());
+
 			assertFalse(days.isEmpty());
 
 		} catch (EpisodeProviderException epe) {
