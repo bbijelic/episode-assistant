@@ -59,6 +59,8 @@
         
         <!-- Library versions -->
         <version.dropwizard>1.1.0</version.dropwizard>
+        <version.slf4j>1.7.25</version.slf4j>
+        <version.logback>1.2.2</version.logback>
         <version.junit>4.12</version.junit>
         <version.guice.bundle>1.0.6.0</version.guice.bundle>
         

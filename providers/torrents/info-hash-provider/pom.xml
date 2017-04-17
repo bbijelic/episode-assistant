@@ -3,18 +3,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
         <groupId>com.github.bbijelic</groupId>
-        <artifactId>episode-assistant-providers</artifactId>
+        <artifactId>episode-assistant-providers-torrents</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-	<artifactId>episode-assistant-providers-torrents</artifactId>
+	<artifactId>episode-assistant-providers-torrents-infohash</artifactId>
 	<packaging>pom</packaging>
 	
-	<name>Episode Assistant : Providers : Torrents</name>
-	<description>Episode Assistant Service Torrents Module</description>
+	<name>Episode Assistant : Providers : Torrents : InfoHash</name>
+	<description>Episode Assistant Service Torrents InfoHash Module</description>
 
     <modules>
-        <module>info-hash-provider</module>
-        <module>torrent-file-provider</module>
+        <module>piratebay-info-hash-provider</module>
     </modules>
 
 </project>

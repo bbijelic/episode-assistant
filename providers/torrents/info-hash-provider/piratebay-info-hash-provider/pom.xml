@@ -2,28 +2,28 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.github.bbijelic</groupId>
-		<artifactId>episode-assistant-providers-episodes</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>episode-assistant-providers-episodes-episodecalendar</artifactId>
+        <groupId>com.github.bbijelic</groupId>
+        <artifactId>episode-assistant-providers-torrents-infohash</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+	<artifactId>episode-assistant-providers-torrents-infohash-piratebay</artifactId>
 	<packaging>jar</packaging>
+	
+	<name>Episode Assistant : Providers : Torrents : InfoHash : PirateBay.org</name>
+	<description>Episode Assistant Service Torrents InfoHash PirateBay.org Module</description>
 
-	<name>Episode Assistant : Providers : Episodes : EpisodeCalendar.com Provider</name>
-	<description>EpisodeCalendar.com provider module</description>
-
-	<dependencies>
-		<dependency>
+    <dependencies>
+        <dependency>
 			<groupId>com.github.bbijelic</groupId>
 			<artifactId>episode-assistant-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
 		<dependency>
-			<groupId>rome</groupId>
-			<artifactId>rome</artifactId>
-			<version>1.0</version>
-		</dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.10.2</version>
+        </dependency>
+    
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
