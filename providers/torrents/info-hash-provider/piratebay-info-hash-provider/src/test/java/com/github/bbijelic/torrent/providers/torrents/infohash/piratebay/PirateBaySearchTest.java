@@ -104,42 +104,5 @@ public class PirateBaySearchTest {
         String formattedString2 = String.format(format, 2, 15);
         assertEquals("s02e15", formattedString2);
     }
-    
-    /*
-    @Test
-    public void testDownload() throws Exception {        
-        URL torrentDownloadLink = new URL("https://torrasave.top/torrent/9A084C46A8A6BC11EE8CF38EB518CF7F3D129C55.torrent");
         
-        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
-            
-            @Override
-            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                return null;
-            }
-            
-            @Override
-            public void checkServerTrusted(java.security.cert.X509Certificate[] arg0, String arg1) throws CertificateException {}
-            
-            @Override
-            public void checkClientTrusted(java.security.cert.X509Certificate[] arg0, String arg1) throws CertificateException {}
-        }};
-        
-        SSLContext sc = SSLContext.getInstance("TLS");
-        sc.init(null, trustAllCerts, new java.security.SecureRandom());
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        HttpsURLConnection.setDefaultHostnameVerifier( new HostnameVerifier() {
-            @Override
-            public boolean verify(String arg0, SSLSession arg1) {
-                return true;
-            }
-        });
-        
-        HttpsURLConnection con = (HttpsURLConnection)torrentDownloadLink.openConnection();
-        ReadableByteChannel rbc = Channels.newChannel(con.getInputStream());
-        FileOutputStream fos = new FileOutputStream("/tmp/scorpion.torrent");
-        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-        fos.close();
-    }
-    */
-    
 }

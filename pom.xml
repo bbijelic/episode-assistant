@@ -77,6 +77,7 @@
 	
 	<modules>
 	   <module>core</module>
+	   <module>database</module>
 	   <module>config</module>
 	   <module>service</module>
 	   <module>assembly</module>

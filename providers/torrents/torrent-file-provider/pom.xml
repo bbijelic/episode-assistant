@@ -12,4 +12,8 @@
 	<name>Episode Assistant : Providers : Torrents : File</name>
 	<description>Episode Assistant Service Torrents File Module</description>
 
+    <modules>
+        <module>torrsave-torrent-file-provider</module>
+    </modules>
+
 </project>

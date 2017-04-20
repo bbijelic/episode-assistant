@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>com.github.bbijelic</groupId>
+        <artifactId>episode-assistant-providers-torrents-file</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+	<artifactId>episode-assistant-providers-torrents-file-torrsave</artifactId>
+	<packaging>jar</packaging>
+	
+	<name>Episode Assistant : Providers : Torrents : File : Torrsave.top</name>
+	<description>Episode Assistant Service Torrents InfoHash Torrsave.top Module</description>
+
+    <dependencies>
+        <dependency>
+			<groupId>com.github.bbijelic</groupId>
+			<artifactId>episode-assistant-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+    
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${version.slf4j}</version>
+		</dependency>
+
+		<dependency>
+			<scope>test</scope>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${version.logback}</version>
+		</dependency>
+	</dependencies>
+
+</project>
