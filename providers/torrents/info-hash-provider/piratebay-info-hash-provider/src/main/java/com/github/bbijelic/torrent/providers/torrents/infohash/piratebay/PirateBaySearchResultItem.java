@@ -2,12 +2,14 @@ package com.github.bbijelic.torrent.providers.torrents.infohash.piratebay;
 
 import java.util.Calendar;
 
+import com.github.bbijelic.torrent.core.torrents.infohash.ResultItem;
+
 /**
  * Pirate bay search result item
  * 
  * @author Bojan Bijelić
  */
-public class PirateBaySearchResultItem {
+public class PirateBaySearchResultItem implements ResultItem {
     
     /**
      * Constructor
@@ -43,11 +45,7 @@ public class PirateBaySearchResultItem {
      */
     private String type;
     
-    /**
-     * Type getter
-     * 
-     * @return the type
-     */
+    @Override
     public String getType() {
         return type;
     }
@@ -57,11 +55,7 @@ public class PirateBaySearchResultItem {
      */
     private String name;
     
-    /**
-     * Name getter
-     * 
-     * @return the torrent name
-     */
+    @Override
     public String getName() {
         return name;
     }
@@ -71,11 +65,7 @@ public class PirateBaySearchResultItem {
      */
     private Calendar uploaded;
     
-    /**
-     * Uploaded calendar getter
-     * 
-     * @return the uploaded calendar
-     */
+    @Override
     public Calendar getUploaded() {
         return uploaded;
     }
@@ -85,11 +75,7 @@ public class PirateBaySearchResultItem {
      */
     private long size;
     
-    /**
-     * Size getter
-     * 
-     * @return the torrent size
-     */
+    @Override
     public long getSize() {
         return size;
     }
@@ -99,11 +85,7 @@ public class PirateBaySearchResultItem {
      */
     private String uploadedBy;
     
-    /**
-     * Uploaded by getter
-     * 
-     * @return the author of the torrent
-     */
+    @Override
     public String getUploadedBy() {
         return uploadedBy;
     }
@@ -113,11 +95,7 @@ public class PirateBaySearchResultItem {
      */
     private int seeders;
     
-    /**
-     * Seeders getter
-     * 
-     * @return the seeders number
-     */
+    @Override
     public int getSeeders() {
         return seeders;
     }
@@ -127,11 +105,7 @@ public class PirateBaySearchResultItem {
      */
     private int leechers;
     
-    /**
-     * Leechers getter
-     * 
-     * @return the leechers number
-     */
+    @Override
     public int getLeechers() {
         return leechers;
     }
@@ -141,11 +115,7 @@ public class PirateBaySearchResultItem {
      */
     private String infoHash;
     
-    /**
-     * Info hash getter
-     * 
-     * @return the torrent info hash
-     */
+    @Override
     public String getInfoHash() {
         return infoHash;
     }

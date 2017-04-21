@@ -13,8 +13,9 @@ public interface TorrentFileProvider {
      * Returns torrent file for a given info hash
      * 
      * @param infoHash the info hash
+     * @throws TorrentFileProviderException
      * @return the torrent file
      */
-    File getTorrentFile(String infoHash);
+    File getTorrentFile(String infoHash) throws TorrentFileProviderException;
     
 }
