@@ -28,6 +28,21 @@
             <artifactId>episode-assistant-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.bbijelic</groupId>
+            <artifactId>episode-assistant-providers-episodes-episodecalendar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.bbijelic</groupId>
+            <artifactId>episode-assistant-providers-torrents-infohash-piratebay</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.bbijelic</groupId>
+            <artifactId>episode-assistant-providers-torrents-file-torrsave</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 	
 </project>

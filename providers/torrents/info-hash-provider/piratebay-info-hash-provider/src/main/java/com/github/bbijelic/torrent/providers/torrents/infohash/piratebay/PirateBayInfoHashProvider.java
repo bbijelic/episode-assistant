@@ -20,6 +20,21 @@ import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.Mu
  */
 public class PirateBayInfoHashProvider implements InfoHashProvider {
         
+    @Override
+    public String getAuthor() {
+        return "Bojan Bijelić";
+    }
+    
+    @Override
+    public String getDescription() {
+        return "PirateBay.org torrent infohash provider";
+    }
+    
+    @Override
+    public String getName() {
+        return "PirateBay.org InfoHash Provider";
+    }
+        
     /**
      * Logger
      */

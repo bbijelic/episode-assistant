@@ -7,7 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.ServiceLoader;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import org.junit.Test;
 
@@ -66,6 +68,17 @@ public class EpisodeCalendarEpisodeProviderTest {
 			fail(epe.getMessage());
 		}
 
+	}
+	
+	@Test
+	public void serviceLoaderTest(){
+	    ServiceLoader<EpisodesProvider> serviceLoader = ServiceLoader.load(EpisodesProvider.class);
+	    serviceLoader.forEach(new Consumer<EpisodesProvider>() {
+	        @Override
+	        public void accept(EpisodesProvider episodeProvider) {
+	            assertTrue(episodeProvider instanceof EpisodeCalendarEpisodeProvider);
+	        }	        
+        });
 	}
 
 }

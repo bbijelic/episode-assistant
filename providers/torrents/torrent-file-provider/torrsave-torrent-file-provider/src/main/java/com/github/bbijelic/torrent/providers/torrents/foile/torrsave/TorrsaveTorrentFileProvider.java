@@ -30,6 +30,21 @@ public class TorrsaveTorrentFileProvider implements TorrentFileProvider {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(TorrsaveTorrentFileProvider.class);
     
+    @Override
+    public String getAuthor() {
+        return "Bojan Bijelić";
+    }
+    
+    @Override
+    public String getDescription() {
+        return "Torrsave.top torrent file provider";
+    }
+    
+    @Override
+    public String getName() {
+        return "TorrSave.top Torrent File Provider";
+    }
+    
     /**
      * Torrsave.top url template
      */
@@ -44,6 +59,13 @@ public class TorrsaveTorrentFileProvider implements TorrentFileProvider {
      * Torrent target directory
      */
     File torrentTargetDirectory;
+    
+    /**
+     * Constructor
+     */
+    public TorrsaveTorrentFileProvider(){
+        
+    }
     
     /**
      * Constructor

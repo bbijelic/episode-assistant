@@ -3,9 +3,8 @@ package com.github.bbijelic.torrent.core.torrents.infohash;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import com.github.bbijelic.torrent.core.episodes.Episode;
+import com.github.bbijelic.torrent.core.provider.Provider;
 
 
 /**
@@ -13,7 +12,7 @@ import com.github.bbijelic.torrent.core.episodes.Episode;
  * 
  * @author Bojan Bijelić
  */
-public interface InfoHashProvider {
+public interface InfoHashProvider extends Provider {
     
     /**
      * Finds best match info hash for a given episode
