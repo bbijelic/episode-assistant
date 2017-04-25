@@ -36,6 +36,16 @@
 				<include>banner.txt</include>
 			</includes>
 		</fileSet>
+		
+		<!-- SQLite database file -->
+		<fileSet>
+            <filtered>false</filtered>
+            <directory>${project.basedir}/../database/target</directory>
+            <outputDirectory>db</outputDirectory>
+            <includes>
+				<include>data.db</include>
+			</includes>
+        </fileSet>
           
         <!-- Empty directories -->
         <fileSet>
