@@ -65,4 +65,12 @@ public interface ResultItem {
      */
     String getInfoHash();
     
+    /**
+     * Returns the magnet link of the result item
+     * 
+     * @return the magnet link
+     * @return
+     */
+    String getMagnetLink();
+    
 }

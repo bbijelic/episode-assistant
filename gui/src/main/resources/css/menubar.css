@@ -1,0 +1,19 @@
+.episodes > .label {
+    -fx-graphic: url("../imgs/episodes-icon.png") auto;
+}
+
+.subtitles > .label {
+    -fx-graphic: url("../imgs/subtitles-icon.png") auto;
+}
+
+.torrents > .label {
+    -fx-graphic: url("../imgs/torrents-icon.png") auto;
+}
+
+.help > .label {
+    -fx-graphic: url("../imgs/help-icon.png") auto;
+}
+
+.about > .label {
+    -fx-graphic: url("../imgs/about-icon.png") auto;
+}

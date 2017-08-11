@@ -14,11 +14,6 @@
 		
 	<dependencies>
         <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-core</artifactId>
-            <version>${version.dropwizard}</version>
-        </dependency>	
-        <dependency>
             <groupId>com.github.bbijelic</groupId>
             <artifactId>episode-assistant-config</artifactId>
             <version>${project.version}</version>
@@ -41,11 +36,6 @@
         <dependency>
             <groupId>com.github.bbijelic</groupId>
             <artifactId>episode-assistant-providers-torrents-infohash-piratebay</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.bbijelic</groupId>
-            <artifactId>episode-assistant-providers-torrents-file-torrsave</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

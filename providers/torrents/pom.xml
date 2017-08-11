@@ -14,7 +14,7 @@
 
     <modules>
         <module>info-hash-provider</module>
-        <module>torrent-file-provider</module>
+        
     </modules>
 
 </project>

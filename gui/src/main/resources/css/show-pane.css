@@ -1,0 +1,10 @@
+.label {
+	-fx-color: gray;
+	-fx-font-size: 10pt;
+	-fx-font-weight: normal;
+}
+
+.show-name-value, .episode-name-value, .episode-summary-value {
+	-fx-font-size: 12pt;
+	-fx-font-weight: bold;
+}

@@ -1,0 +1,11 @@
+.release-date-column, .season-number-column, .episode-number-column, .status-column {
+	-fx-alignment: CENTER;	
+}
+
+.show-name-column, .season-number-column, .episode-number-column {
+	-fx-font-weight: bold;	
+}
+
+.context-menu-download > .label {
+	-fx-graphic: url("../imgs/subtitles-icon.png") auto;
+}
