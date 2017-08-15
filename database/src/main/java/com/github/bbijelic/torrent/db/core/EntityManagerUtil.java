@@ -19,8 +19,9 @@ public class EntityManagerUtil {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(EntityManagerUtil.class);
 	
-	public static final String PERISTANCE_UNIT_PROD = "episode-assistant";
-	public static final String PERISTANCE_UNIT_TEST = "episode-assistant-test";
+	public static final String PERSISTANCE_UNIT_PROD = "episode-assistant";
+	public static final String PERSISTANCE_UNIT_TEST = "episode-assistant-test";
+	public static final String PERSISTANCE_UNIT_POSTGRES = "episode-assistant-postgres";
 
 	/**
 	 * Entity Manager factory

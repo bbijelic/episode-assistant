@@ -1,10 +1,17 @@
 package com.github.bbijelic.torrent.db.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -68,12 +75,6 @@ public class ConfigTorrent {
 		this.outputDirectory = outputDirectory;
 	}
 
-	@Override
-	public String toString() {
-		return "ConfigTorrent [id=" + id + ", outputDirectory=" + outputDirectory + ", maxPeerConnections="
-				+ maxPeerConnections + ", maxPeerConnectionsPerTorrent=" + maxPeerConnectionsPerTorrent + "]";
-	}
-
 	/**
 	 * Max peer connections
 	 */
@@ -122,6 +123,78 @@ public class ConfigTorrent {
 	 */
 	public void setMaxPeerConnectionsPerTorrent(int maxPeerConnectionsPerTorrent) {
 		this.maxPeerConnectionsPerTorrent = maxPeerConnectionsPerTorrent;
+	}
+
+	/**
+	 * Filter keywords
+	 */
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "config_torrent_filter_keywords", joinColumns = {
+			@JoinColumn(name = "config_torrent_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "config_filter_keyword_id") })
+	private Set<ConfigFilterKeyword> filterKeywords = new HashSet<>();
+
+	/**
+	 * Filter keywords getter
+	 * 
+	 * @return the filter keywords
+	 */
+	public Set<ConfigFilterKeyword> getFilterKeywords() {
+		return filterKeywords;
+	}
+
+	/**
+	 * Filter keywords setter
+	 * 
+	 * @param filterKeywords
+	 *            the filter keywords
+	 */
+	public void setFilterKeywords(Set<ConfigFilterKeyword> filterKeywords) {
+		this.filterKeywords = filterKeywords;
+	}
+	
+	/**
+	 * Filter quality
+	 */
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "config_torrent_filter_quality", joinColumns = {
+			@JoinColumn(name = "config_torrent_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "config_filter_quality_id") })
+	private Set<ConfigFilterQuality> filterQuality = new HashSet<>();
+
+	/**
+	 * Filter quality set getter
+	 * @return the filter quality set
+	 */
+	public Set<ConfigFilterQuality> getFilterQuality() {
+		return filterQuality;
+	}
+	
+	/**
+	 * Filter quality set setter
+	 * @param filterQuality
+	 */
+	public void setFilterQuality(Set<ConfigFilterQuality> filterQuality) {
+		this.filterQuality = filterQuality;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ConfigTorrent [id=");
+		builder.append(id);
+		builder.append(", outputDirectory=");
+		builder.append(outputDirectory);
+		builder.append(", maxPeerConnections=");
+		builder.append(maxPeerConnections);
+		builder.append(", maxPeerConnectionsPerTorrent=");
+		builder.append(maxPeerConnectionsPerTorrent);
+		builder.append(", filterKeywords=");
+		builder.append(filterKeywords);
+		builder.append(", filterQuality=");
+		builder.append(filterQuality);
+		builder.append("]");
+		return builder.toString();
 	}
 
 	@Override
