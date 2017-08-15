@@ -193,8 +193,6 @@ public class MainController implements Initializable {
 			@Override
 			public void run() {
 				
-				episodeModel.setEpisodeStaus(EpisodeStaus.DOWNLOADING_TORRENT);
-
 				// Keywords priority
 				Map<String, Integer> keywordsPriority = new HashMap<String, Integer>();
 				keywordsPriority.put("KILLERS", 2);
@@ -206,6 +204,8 @@ public class MainController implements Initializable {
 				keywordsPriority.put("DIMENSION", 1);
 				keywordsPriority.put("[ettv]", 2);
 				keywordsPriority.put("x264", 3);
+				keywordsPriority.put("x265", -10);
+				keywordsPriority.put("HEVC", -10);
 
 				// Quality priority
 				Map<String, Integer> qualityPriority = new HashMap<String, Integer>();
@@ -221,7 +221,10 @@ public class MainController implements Initializable {
 				List<PirateBaySearchResultItem> searchResults = pirateBaySearch.search(episodeModel);
 
 				if (searchResults.isEmpty()) {
+					
+					// Change episode status
 					episodeModel.setEpisodeStaus(EpisodeStaus.TORRENT_NOT_FOUND);
+					
 					LOGGER.info("Episode not found: {}", episodeModel.toString());
 					return;
 				}
@@ -242,6 +245,9 @@ public class MainController implements Initializable {
 
 				PirateBaySearchResultItem resultItem = searchResults.get(0);
 				if (resultItem != null) {
+					// Change episode status
+					episodeModel.setEpisodeStaus(EpisodeStaus.DOWNLOADING_TORRENT);
+					
 					LOGGER.debug(resultItem.toString());
 				}
 

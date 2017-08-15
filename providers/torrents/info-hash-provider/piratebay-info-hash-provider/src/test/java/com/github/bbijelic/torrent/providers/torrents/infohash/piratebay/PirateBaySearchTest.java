@@ -51,7 +51,7 @@ public class PirateBaySearchTest {
         keywordsPriority.put("DEFLATE", 1);
         keywordsPriority.put("LOL", 3);
         keywordsPriority.put("FLEET", 1);
-        keywordsPriority.put("DIMENSION", 1);
+        keywordsPriority.put("DIMENSION", 1); 
         keywordsPriority.put("[ettv]", 2);
         
         // Quality priority
