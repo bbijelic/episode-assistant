@@ -127,7 +127,17 @@ public class ConfigProfile {
 
 	@Override
 	public String toString() {
-		return "ConfigProfile [id=" + id + ", name=" + name + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("ConfigProfile [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", configTorrent=");
+		builder.append(configTorrent);
+		builder.append(", configCalendar=");
+		builder.append(configCalendar);
+		builder.append("]");
+		return builder.toString();
 	}
 
 	@Override

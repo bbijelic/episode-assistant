@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import com.github.bbijelic.torrent.db.core.EntityManagerUtil;
 import com.github.bbijelic.torrent.db.core.JpaException;
 import com.github.bbijelic.torrent.db.entity.ConfigCalendar;
+import com.github.bbijelic.torrent.db.entity.ConfigFilterKeyword;
+import com.github.bbijelic.torrent.db.entity.ConfigFilterQuality;
 import com.github.bbijelic.torrent.db.entity.ConfigProfile;
 import com.github.bbijelic.torrent.db.entity.ConfigTorrent;
 import com.github.bbijelic.torrent.db.repository.ConfigProfileRepository;
@@ -43,7 +45,7 @@ public class ConfigProfileRepositoryTest {
 		LOGGER.debug("Exectuing before test method");
 
 		// Get entity manager
-		entityManager = EntityManagerUtil.getEntityManager(EntityManagerUtil.PERISTANCE_UNIT_TEST);
+		entityManager = EntityManagerUtil.getEntityManager(EntityManagerUtil.PERSISTANCE_UNIT_TEST);
 
 		// Initialize repository
 		configProfileRepository = new ConfigProfileRepository(ConfigProfile.class, entityManager);
@@ -65,6 +67,17 @@ public class ConfigProfileRepositoryTest {
 		configTorrent.setOutputDirectory(outputDirectory);
 		configTorrent.setMaxPeerConnections(20);
 		configTorrent.setMaxPeerConnectionsPerTorrent(10);
+		
+		// Keywords
+		configTorrent.getFilterKeywords().add(new ConfigFilterKeyword("DIMENSION", 10));
+		configTorrent.getFilterKeywords().add(new ConfigFilterKeyword("KILLERS", 3));
+		configTorrent.getFilterKeywords().add(new ConfigFilterKeyword("FUM", 8));
+		
+		// Quality
+		configTorrent.getFilterQuality().add(new ConfigFilterQuality("HDTV", 10));
+		configTorrent.getFilterQuality().add(new ConfigFilterQuality("WEBRIP", 5));
+		configTorrent.getFilterQuality().add(new ConfigFilterQuality("WEB-RIP", 4));
+		configTorrent.getFilterQuality().add(new ConfigFilterQuality("WEBDL", 7));
 
 		// Configuration profile
 		ConfigProfile configProfile = new ConfigProfile();
@@ -76,16 +89,20 @@ public class ConfigProfileRepositoryTest {
 			
 			// CREATE
 			// Persist config profile
-			configProfile = configProfileRepository.persist(configProfile);
+			configProfileRepository.persist(configProfile);
 
 			// GET CREATED
 			// Get config profile by id
 			Optional<ConfigProfile> configProfileOptional = configProfileRepository.get(configProfile.getId());
 			assertTrue(configProfileOptional.isPresent());
+			ConfigProfile obtainedConfigProfile = configProfileOptional.get();
+			assertEquals(3, obtainedConfigProfile.getConfigTorrent().getFilterKeywords().size());
+			assertEquals(4, obtainedConfigProfile.getConfigTorrent().getFilterQuality().size());
 
 			// UPDATE
+			// UPDATE
 			String newProfileName = UUID.randomUUID().toString();
-			ConfigProfile obtainedConfigProfile = configProfileOptional.get();
+			obtainedConfigProfile = configProfileOptional.get();
 			obtainedConfigProfile.setName(newProfileName);
 
 			// GET UPDATED

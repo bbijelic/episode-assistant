@@ -118,7 +118,7 @@ public class JpaRepository<T> implements Repository<T> {
 	}
 
 	@Override
-	public T persist(T entity) throws JpaException {
+	public void persist(T entity) throws JpaException {
 		LOGGER.debug("Entering: persist(entity={})", entity.toString());
 		
 		try {
@@ -126,8 +126,8 @@ public class JpaRepository<T> implements Repository<T> {
 			// Begin transaction
 			entityManager.getTransaction().begin();
 
-			// Merge entity
-			entity = entityManager.merge(entity);
+			// Persist entity
+			entityManager.persist(entity);
 
 			// Commit transaction
 			entityManager.getTransaction().commit();
@@ -140,8 +140,7 @@ public class JpaRepository<T> implements Repository<T> {
 			throw new JpaException(t.getMessage(), t);
 		}
 
-		LOGGER.debug("Leaving: persist(entity={}), returning={}", entity.toString(), entity.toString());
-		return entity;
+		LOGGER.debug("Leaving: persist(entity={})", entity.toString());
 	}
 
 	@Override

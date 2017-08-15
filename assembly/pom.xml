@@ -15,7 +15,7 @@
 	<dependencies>
 	   <dependency>
             <groupId>com.github.bbijelic</groupId>
-            <artifactId>episode-assistant-service</artifactId>
+            <artifactId>episode-assistant-gui</artifactId>
 			<version>${project.version}</version>
 	   </dependency>
 	</dependencies>

@@ -35,7 +35,7 @@ public interface Repository<T> {
 	 * Persists the entity by merging
 	 * @param entity the entity
 	 */
-	public T persist(T entity) throws JpaException;
+	public void persist(T entity) throws JpaException;
 	
 	/**
 	 * Removes entity 

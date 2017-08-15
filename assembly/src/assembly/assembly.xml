@@ -31,22 +31,8 @@
 			<filtered>true</filtered>
 			<directory>${project.basedir}/src/assembly/config</directory>
 			<outputDirectory>config</outputDirectory>
-			<includes>
-				<include>config.yml</include>
-				<include>banner.txt</include>
-			</includes>
 		</fileSet>
-		
-		<!-- SQLite database file -->
-		<fileSet>
-            <filtered>false</filtered>
-            <directory>${project.basedir}/../database/target</directory>
-            <outputDirectory>db</outputDirectory>
-            <includes>
-				<include>data.db</include>
-			</includes>
-        </fileSet>
-          
+		          
         <!-- Empty directories -->
         <fileSet>
             <directory>.</directory>
