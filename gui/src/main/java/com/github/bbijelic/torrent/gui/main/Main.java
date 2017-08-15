@@ -48,6 +48,7 @@ public class Main extends Application {
 		Scene scene = new Scene(rootPane, 1024, 786);
 		
 		primaryStage.setScene(scene);
+		primaryStage.setTitle("Episode Assistant");
 		primaryStage.show();
 
 	}
