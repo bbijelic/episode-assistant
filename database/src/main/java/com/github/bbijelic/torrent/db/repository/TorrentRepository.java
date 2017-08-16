@@ -3,6 +3,7 @@ package com.github.bbijelic.torrent.db.repository;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -83,10 +84,16 @@ public class TorrentRepository extends JpaRepository<Torrent> {
 			// Commit transaction
 			getEntityManager().getTransaction().commit();
 
+		} catch (NoResultException nre) {
+			LOGGER.debug("Query returned no results");
+
+			// Commit transaction
+			getEntityManager().getTransaction().commit();
+
 		} catch (Throwable t) {
 			// Error occured, rollback transaction
 			getEntityManager().getTransaction().rollback();
-			LOGGER.error("Getting torrent failed: {}", t.getMessage());
+			LOGGER.error("Getting torrent failed: {}", t.toString());
 
 			throw new JpaException(t.getMessage(), t);
 		}

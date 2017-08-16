@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -69,11 +70,17 @@ public class JpaRepository<T> implements Repository<T> {
 			// Commit transaction
 			entityManager.getTransaction().commit();
 
+		} catch (NoResultException nre) {
+			LOGGER.debug("Query returned no results");
+
+			// Commit transaction
+			getEntityManager().getTransaction().commit();
+
 		} catch (Throwable t) {
 			// Error occured, rollback transaction
 			entityManager.getTransaction().rollback();
 			LOGGER.error("Getting entity by ID failed: {}", t.getMessage());
-			
+
 			throw new JpaException(t.getMessage(), t);
 		}
 
@@ -105,11 +112,17 @@ public class JpaRepository<T> implements Repository<T> {
 			// Commit transaction
 			entityManager.getTransaction().commit();
 
+		} catch (NoResultException nre) {
+			LOGGER.debug("Query returned no results");
+
+			// Commit transaction
+			getEntityManager().getTransaction().commit();
+
 		} catch (Throwable t) {
 			// Error occured, rollback transaction
 			entityManager.getTransaction().rollback();
 			LOGGER.error("Getting all entities failed: {}", t.getMessage());
-			
+
 			throw new JpaException(t.getMessage(), t);
 		}
 
@@ -120,7 +133,7 @@ public class JpaRepository<T> implements Repository<T> {
 	@Override
 	public void persist(T entity) throws JpaException {
 		LOGGER.debug("Entering: persist(entity={})", entity.toString());
-		
+
 		try {
 
 			// Begin transaction
@@ -136,7 +149,7 @@ public class JpaRepository<T> implements Repository<T> {
 			// Error occured, rollback transaction
 			entityManager.getTransaction().rollback();
 			LOGGER.error("Persisting entity failed: {}", t.getMessage());
-			
+
 			throw new JpaException(t.getMessage(), t);
 		}
 
@@ -162,7 +175,7 @@ public class JpaRepository<T> implements Repository<T> {
 			// Error occured, rollback transaction
 			entityManager.getTransaction().rollback();
 			LOGGER.error("Removing entity failed: {}", t.getMessage());
-			
+
 			throw new JpaException(t.getMessage(), t);
 		}
 

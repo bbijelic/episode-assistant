@@ -90,5 +90,24 @@ public class TorrentRepositoryTest {
 		}
 
 	}
+	
+	@Test
+	public void findUnexistingTorrentTest() {
+
+		try {
+			
+			String showName = "Dark Matter";
+			int season = 3;
+			int episode = 11;
+						
+			Optional<Torrent> resultOptional = repository.find(showName, season, episode);
+			assertFalse(resultOptional.isPresent());
+			
+		} catch (JpaException jpae) {
+			LOGGER.error(jpae.getCause().toString());
+			fail(jpae.toString());
+		}
+
+	}
 
 }
