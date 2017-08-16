@@ -5,6 +5,7 @@
 	<persistence-unit name="episode-assistant" transaction-type="RESOURCE_LOCAL">
 		
 		<!-- Entities -->
+		<class>com.github.bbijelic.torrent.db.entity.Torrent</class>
 		<class>com.github.bbijelic.torrent.db.entity.ConfigFilterQuality</class>
 		<class>com.github.bbijelic.torrent.db.entity.ConfigFilterKeyword</class>
 		<class>com.github.bbijelic.torrent.db.entity.ConfigTorrent</class>
@@ -33,6 +34,7 @@
 	<persistence-unit name="episode-assistant-test" transaction-type="RESOURCE_LOCAL">
 		
 		<!-- Entities -->
+		<class>com.github.bbijelic.torrent.db.entity.Torrent</class>
 		<class>com.github.bbijelic.torrent.db.entity.ConfigFilterQuality</class>
 		<class>com.github.bbijelic.torrent.db.entity.ConfigFilterKeyword</class>
 		<class>com.github.bbijelic.torrent.db.entity.ConfigTorrent</class>
