@@ -17,8 +17,8 @@ import javax.persistence.UniqueConstraint;
  *
  */
 @Entity
-@Table(name = "torrent", uniqueConstraints = { @UniqueConstraint(columnNames = { "show_name", "season",
-		"episode" }, name = "torrent_showname_season_episode_uq") })
+@Table(name = "torrent", uniqueConstraints = { @UniqueConstraint(columnNames = { "show_name", "episode_name", "season",
+		"episode" }, name = "torrent_showname_episode_name_season_episode_uq") })
 public class Torrent {
 
 	/**
@@ -71,6 +71,31 @@ public class Torrent {
 	 */
 	public void setShowName(String showName) {
 		this.showName = showName;
+	}
+
+	/**
+	 * Episode name
+	 */
+	@Column(name = "episode_name", insertable = true, updatable = true, nullable = false)
+	private String episodeName;
+
+	/**
+	 * Episode name getter
+	 * 
+	 * @return the episode name
+	 */
+	public String getEpisodeName() {
+		return episodeName;
+	}
+
+	/**
+	 * Episode neme setter
+	 * 
+	 * @param episodeName
+	 *            the episode name
+	 */
+	public void setEpisodeName(String episodeName) {
+		this.episodeName = episodeName;
 	}
 
 	/**
@@ -180,6 +205,8 @@ public class Torrent {
 		builder.append(id);
 		builder.append(", showName=");
 		builder.append(showName);
+		builder.append(", episodeName=");
+		builder.append(episodeName);
 		builder.append(", season=");
 		builder.append(season);
 		builder.append(", episode=");
@@ -197,6 +224,7 @@ public class Torrent {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + episode;
+		result = prime * result + ((episodeName == null) ? 0 : episodeName.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((magnetLink == null) ? 0 : magnetLink.hashCode());
 		result = prime * result + season;
@@ -215,6 +243,11 @@ public class Torrent {
 			return false;
 		Torrent other = (Torrent) obj;
 		if (episode != other.episode)
+			return false;
+		if (episodeName == null) {
+			if (other.episodeName != null)
+				return false;
+		} else if (!episodeName.equals(other.episodeName))
 			return false;
 		if (id != other.id)
 			return false;

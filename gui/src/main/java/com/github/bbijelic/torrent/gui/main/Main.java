@@ -2,6 +2,9 @@ package com.github.bbijelic.torrent.gui.main;
 
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.eventbus.EventBus;
 
 import javafx.application.Application;
@@ -13,6 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
 	// Event bus
 	private static EventBus eventBus = new EventBus();
@@ -24,7 +29,7 @@ public class Main extends Application {
 	public synchronized static EventBus getEventBus() {
 		return eventBus;
 	}
-	
+		
 	public static void main(String[] args) {
 		launch(args);
 	}

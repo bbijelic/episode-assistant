@@ -63,12 +63,14 @@ public class TorrentRepositoryTest {
 		try {
 			
 			String showName = "Dark Matter";
+			String episodeName = "Built, Not Born";
 			int season = 3;
 			int episode = 10;
 			
 			// Prepare torrent
 			Torrent torrent = new Torrent();
 			torrent.setShowName(showName);
+			torrent.setEpisodeName(episodeName);
 			torrent.setSeason(season);
 			torrent.setEpisode(episode);
 			torrent.setState(TorrentState.GETTING_METADATA);
@@ -82,6 +84,7 @@ public class TorrentRepositoryTest {
 			
 			Torrent resultTorrent = resultOptional.get();
 			assertEquals(showName, resultTorrent.getShowName());
+			assertEquals(episodeName, resultTorrent.getEpisodeName());
 			assertEquals(season, resultTorrent.getSeason());
 			assertEquals(episode, resultTorrent.getEpisode());
 			

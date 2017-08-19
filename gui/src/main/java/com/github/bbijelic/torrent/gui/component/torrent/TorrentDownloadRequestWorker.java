@@ -14,12 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.bbijelic.torrent.core.episodes.Episode;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.PirateBaySearch;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.PirateBaySearchResultItem;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.KeywordComparator;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.MultiComparator;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.PopularityComparator;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.SizeComparator;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.PirateBaySearch;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.PirateBaySearchResultItem;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.KeywordComparator;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.MultiComparator;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.PopularityComparator;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.SizeComparator;
 
 import javafx.collections.ObservableList;
 

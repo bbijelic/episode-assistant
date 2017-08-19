@@ -20,12 +20,12 @@ import com.github.bbijelic.torrent.core.episodes.EpisodeBatch;
 import com.github.bbijelic.torrent.core.episodes.EpisodeProviderException;
 import com.github.bbijelic.torrent.core.episodes.EpisodesProvider;
 import com.github.bbijelic.torrent.gui.component.calendar.EpisodeModel;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.PirateBaySearch;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.PirateBaySearchResultItem;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.KeywordComparator;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.MultiComparator;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.PopularityComparator;
-import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.SizeComparator;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.PirateBaySearch;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.PirateBaySearchResultItem;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.KeywordComparator;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.MultiComparator;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.PopularityComparator;
+import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.SizeComparator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
