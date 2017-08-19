@@ -2,16 +2,29 @@ package com.github.bbijelic.torrent.gui.main;
 
 import java.net.URL;
 
+import com.google.common.eventbus.EventBus;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	// Event bus
+	private static EventBus eventBus = new EventBus();
+	
+	/**
+	 * Event bus getter
+	 * @return
+	 */
+	public synchronized static EventBus getEventBus() {
+		return eventBus;
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -20,7 +33,7 @@ public class Main extends Application {
 	 * Root pane
 	 */
 	private static BorderPane rootPane = new BorderPane();
-
+	
 	/**
 	 * Root pane getter
 	 * 
@@ -38,17 +51,18 @@ public class Main extends Application {
 		VBox menuBar = FXMLLoader.load(menuBarUrl);
 
 		// Main pane
-		URL mainPaneUrl = getClass().getClassLoader().getResource("view/main.fxml");
-		AnchorPane mainPane = FXMLLoader.load(mainPaneUrl);
-		
+		URL mainPaneUrl = getClass().getClassLoader().getResource("view/episode-assistant.fxml");
+		SplitPane mainPane = FXMLLoader.load(mainPaneUrl);
+	
 		rootPane.setTop(menuBar);
 		rootPane.setCenter(mainPane);
 		
 		// Setting up the scene
-		Scene scene = new Scene(rootPane, 1024, 786);
+		Scene scene = new Scene(rootPane, 1920, 1080);
 		
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Episode Assistant");
+		primaryStage.setMaximized(true);
 		primaryStage.show();
 
 	}

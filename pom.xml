@@ -64,6 +64,7 @@
 		<version.logback>1.2.3</version.logback>
 		<version.junit>4.12</version.junit>
 		<version.guice.bundle>1.0.6.0</version.guice.bundle>
+		<version.guava>23.0</version.guava>
 
 	</properties>
 
@@ -79,6 +80,12 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${version.logback}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${version.guava}</version>
 		</dependency>
 	</dependencies>
 

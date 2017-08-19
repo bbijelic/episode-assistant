@@ -37,10 +37,6 @@
 							prefWidth = "60" styleClass="episode-number-column" text="Episode" />
 						<TableColumn fx:id="releaseDateColumn" editable="false"
 							prefWidth="100" styleClass="release-date-column" text="Release Date" />
-						<TableColumn fx:id="statusColumn" editable="false"
-							prefWidth="150" styleClass="status-column" text="Status" />
-						<TableColumn fx:id="progressColumn" editable="false"
-							prefWidth="300" styleClass="progress-column" text="Progress" />
 					</columns>
 					<columnResizePolicy>
 						<TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY" />

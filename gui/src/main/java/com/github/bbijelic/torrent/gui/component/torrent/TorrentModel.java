@@ -1,14 +1,20 @@
-package com.github.bbijelic.torrent.gui.main.controller;
+/**
+ * 
+ */
+package com.github.bbijelic.torrent.gui.component.torrent;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import com.github.bbijelic.torrent.core.episodes.Episode;
 
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class EpisodeModel implements com.github.bbijelic.torrent.core.episodes.Episode {
+/**
+ * Torrent Model
+ * 
+ * @author Bojan Bijelic
+ *
+ */
+public class TorrentModel implements Episode {
 
 	private final SimpleStringProperty showName;
 
@@ -35,7 +41,7 @@ public class EpisodeModel implements com.github.bbijelic.torrent.core.episodes.E
 	public void setEpisodeName(String episodeName) {
 		this.episodeName.set(episodeName);
 	}
-	
+
 	public SimpleStringProperty episodeNameProperty() {
 		return episodeName;
 	}
@@ -50,7 +56,7 @@ public class EpisodeModel implements com.github.bbijelic.torrent.core.episodes.E
 	public void setSeasonNumber(int seasonNumber) {
 		this.seasonNumber.set(seasonNumber);
 	}
-	
+
 	public SimpleIntegerProperty seasonNumberProperty() {
 		return seasonNumber;
 	}
@@ -65,7 +71,7 @@ public class EpisodeModel implements com.github.bbijelic.torrent.core.episodes.E
 	public void setEpisodeNumber(int episodeNumber) {
 		this.episodeNumber.set(episodeNumber);
 	}
-	
+
 	public SimpleIntegerProperty episodeNumberProperty() {
 		return episodeNumber;
 	}
@@ -80,73 +86,39 @@ public class EpisodeModel implements com.github.bbijelic.torrent.core.episodes.E
 	public void setSummary(String summary) {
 		this.summary.set(summary);
 	}
-	
+
 	public SimpleStringProperty summaryProperty() {
 		return summary;
 	}
-
-	private SimpleStringProperty releaseDate;
-
-	public String getReleaseDate() {
-		return releaseDate.get();
-	}
-
-	public void setReleaseDate(String releaseDate) {
-		this.releaseDate.set(releaseDate);
+	
+	private SimpleStringProperty torrentName;
+	
+	public String getTorrentName() {
+		return torrentName.get();
 	}
 	
-	public SimpleStringProperty releaseDateProperty() {
-		return releaseDate;
-	}
-
-	private SimpleObjectProperty<EpisodeStaus> episodeStaus;
-
-	public EpisodeStaus getEpisodeStaus() {
-		return episodeStaus.get();
-	}
-
-	public void setEpisodeStaus(EpisodeStaus episodeStaus) {
-		this.episodeStaus.set(episodeStaus);
+	public void setTorrentName(String torrentName) {
+		this.torrentName.set(torrentName);
 	}
 	
-	public SimpleObjectProperty<EpisodeStaus> episodeStausProperty() {
-		return episodeStaus;
+	public SimpleStringProperty torrentNameProperty() {
+		return torrentName;
 	}
 
-	private SimpleDoubleProperty progress;
-
-	public double getProgress() {
-		return progress.get();
-	}
-
-	public void setProgress(double progress) {
-		this.progress.set(progress);
-	}
-	
-	public SimpleDoubleProperty progressProperty() {
-		return progress;
-	}
-
-	public EpisodeModel(String showName, String episodeName, int seasonNumber, int episodeNumber, String summary,
-			Calendar releaseDate, EpisodeStaus episodeStaus, double progress) {
+	public TorrentModel(String showName, String episodeName, int seasonNumber, int episodeNumber, String summary, String torrentName) {
 		super();
 		this.showName = new SimpleStringProperty(showName);
 		this.episodeName = new SimpleStringProperty(episodeName);
 		this.seasonNumber = new SimpleIntegerProperty(seasonNumber);
 		this.episodeNumber = new SimpleIntegerProperty(episodeNumber);
 		this.summary = new SimpleStringProperty(summary);
-		this.episodeStaus = new SimpleObjectProperty<EpisodeStaus>(episodeStaus);
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		this.releaseDate = new SimpleStringProperty(sdf.format(releaseDate.getTime()));
-
-		this.progress = new SimpleDoubleProperty(progress);
+		this.torrentName = new SimpleStringProperty(torrentName);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("EpisodeModel [showName=");
+		builder.append("TorrentModel [showName=");
 		builder.append(showName);
 		builder.append(", episodeName=");
 		builder.append(episodeName);
@@ -156,12 +128,8 @@ public class EpisodeModel implements com.github.bbijelic.torrent.core.episodes.E
 		builder.append(episodeNumber);
 		builder.append(", summary=");
 		builder.append(summary);
-		builder.append(", releaseDate=");
-		builder.append(releaseDate);
-		builder.append(", episodeStaus=");
-		builder.append(episodeStaus);
-		builder.append(", progress=");
-		builder.append(progress);
+		builder.append(", torrentName=");
+		builder.append(torrentName);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -171,15 +139,11 @@ public class EpisodeModel implements com.github.bbijelic.torrent.core.episodes.E
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((episodeName == null) ? 0 : episodeName.hashCode());
-		result = prime * result + episodeNumber.get();
-		result = prime * result + ((episodeStaus == null) ? 0 : episodeStaus.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(progress.get());
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((releaseDate == null) ? 0 : releaseDate.hashCode());
-		result = prime * result + seasonNumber.get();
+		result = prime * result + ((episodeNumber == null) ? 0 : episodeNumber.hashCode());
+		result = prime * result + ((seasonNumber == null) ? 0 : seasonNumber.hashCode());
 		result = prime * result + ((showName == null) ? 0 : showName.hashCode());
 		result = prime * result + ((summary == null) ? 0 : summary.hashCode());
+		result = prime * result + ((torrentName == null) ? 0 : torrentName.hashCode());
 		return result;
 	}
 
@@ -191,24 +155,21 @@ public class EpisodeModel implements com.github.bbijelic.torrent.core.episodes.E
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EpisodeModel other = (EpisodeModel) obj;
+		TorrentModel other = (TorrentModel) obj;
 		if (episodeName == null) {
 			if (other.episodeName != null)
 				return false;
 		} else if (!episodeName.equals(other.episodeName))
 			return false;
-		if (episodeNumber != other.episodeNumber)
-			return false;
-		if (episodeStaus != other.episodeStaus)
-			return false;
-		if (Double.doubleToLongBits(progress.get()) != Double.doubleToLongBits(other.progress.get()))
-			return false;
-		if (releaseDate == null) {
-			if (other.releaseDate != null)
+		if (episodeNumber == null) {
+			if (other.episodeNumber != null)
 				return false;
-		} else if (!releaseDate.equals(other.releaseDate))
+		} else if (!episodeNumber.equals(other.episodeNumber))
 			return false;
-		if (seasonNumber != other.seasonNumber)
+		if (seasonNumber == null) {
+			if (other.seasonNumber != null)
+				return false;
+		} else if (!seasonNumber.equals(other.seasonNumber))
 			return false;
 		if (showName == null) {
 			if (other.showName != null)
@@ -219,6 +180,11 @@ public class EpisodeModel implements com.github.bbijelic.torrent.core.episodes.E
 			if (other.summary != null)
 				return false;
 		} else if (!summary.equals(other.summary))
+			return false;
+		if (torrentName == null) {
+			if (other.torrentName != null)
+				return false;
+		} else if (!torrentName.equals(other.torrentName))
 			return false;
 		return true;
 	}

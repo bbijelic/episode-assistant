@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+
+<fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml">
+	<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+		AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<HBox>
+			<Button fx:id="loadCalendarBtn" mnemonicParsing="false"
+				text="Load Calendar" onAction="#onLoadCalendarBtnAction">
+				<HBox.margin>
+					<Insets right="5.0" />
+				</HBox.margin>
+			</Button>
+			<Button fx:id="clearCalendarBtn" mnemonicParsing="false" text="Clear"
+				onAction="#onClearCalendarBtn">
+				<HBox.margin>
+					<Insets right="5.0" />
+				</HBox.margin>
+			</Button>
+			<padding>
+				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+			</padding>
+		</HBox>
+		<TableView fx:id="calendarTableView" VBox.vgrow="ALWAYS">
+			<VBox.margin>
+				<Insets right="5.0" bottom="5.0" left="5.0" top="0.0" />
+			</VBox.margin>
+			<columns>
+				<TableColumn fx:id="showNameColumn" minWidth="200.0"
+					prefWidth="200.0" text="Show Name">
+					<cellValueFactory>
+						<PropertyValueFactory property="showName" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn fx:id="episodeNameColumn" minWidth="200.0"
+					prefWidth="200.0" text="Episode Name">
+					<cellValueFactory>
+						<PropertyValueFactory property="episodeName" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn fx:id="seasonColumn" minWidth="100.0"
+					prefWidth="100.0" text="Season">
+					<cellValueFactory>
+						<PropertyValueFactory property="seasonNumber" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn fx:id="episodeColumn" minWidth="100.0"
+					prefWidth="100.0" text="Episode">
+					<cellValueFactory>
+						<PropertyValueFactory property="episodeNumber" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn fx:id="releaseDateColumn" minWidth="150.0"
+					prefWidth="150.0" text="Release Date">
+					<cellValueFactory>
+						<PropertyValueFactory property="releaseDate" />
+					</cellValueFactory>
+				</TableColumn>
+			</columns>
+			<contextMenu>
+				<ContextMenu>
+					<items>
+						<MenuItem text="Download Episode..." onAction="#onContextDownloadAction" />
+						<MenuItem text="Remove Episode..." onAction="#onContextMenuRemoveAction" />
+					</items>
+				</ContextMenu>
+			</contextMenu>
+		</TableView>
+	</VBox>
+</fx:root>

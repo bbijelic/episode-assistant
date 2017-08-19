@@ -19,6 +19,7 @@ import com.github.bbijelic.torrent.core.episodes.Episode;
 import com.github.bbijelic.torrent.core.episodes.EpisodeBatch;
 import com.github.bbijelic.torrent.core.episodes.EpisodeProviderException;
 import com.github.bbijelic.torrent.core.episodes.EpisodesProvider;
+import com.github.bbijelic.torrent.gui.component.calendar.EpisodeModel;
 import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.PirateBaySearch;
 import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.PirateBaySearchResultItem;
 import com.github.bbijelic.torrent.providers.torrents.infohash.piratebay.sort.KeywordComparator;
@@ -38,7 +39,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MainController implements Initializable {
@@ -62,12 +62,6 @@ public class MainController implements Initializable {
 
 	@FXML
 	private TableColumn<EpisodeModel, String> releaseDateColumn;
-
-	@FXML
-	private TableColumn<EpisodeModel, EpisodeStaus> statusColumn;
-
-	@FXML
-	private TableColumn<EpisodeModel, Double> progressColumn;
 
 	@FXML
 	private Button loadEpisodesBtn;
@@ -101,7 +95,7 @@ public class MainController implements Initializable {
 
 									dataList.add(new EpisodeModel(episode.getShowName(), episode.getEpisodeName(),
 											episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getSummary(),
-											episodeBatch.getDate(), EpisodeStaus.NOT_STARTED, 0));
+											episodeBatch.getDate()));
 								}
 							}
 
@@ -110,9 +104,6 @@ public class MainController implements Initializable {
 							seasonNumberColumn.setCellValueFactory(new PropertyValueFactory<>("seasonNumber"));
 							episodeNumberColumn.setCellValueFactory(new PropertyValueFactory<>("episodeNumber"));
 							releaseDateColumn.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
-							statusColumn.setCellValueFactory(new PropertyValueFactory<>("episodeStaus"));
-							progressColumn.setCellValueFactory(new PropertyValueFactory<>("progress"));
-							progressColumn.setCellFactory(ProgressBarTableCell.<EpisodeModel>forTableColumn());
 
 							episodesTable.setItems(dataList);
 
@@ -221,10 +212,7 @@ public class MainController implements Initializable {
 				List<PirateBaySearchResultItem> searchResults = pirateBaySearch.search(episodeModel);
 
 				if (searchResults.isEmpty()) {
-					
-					// Change episode status
-					episodeModel.setEpisodeStaus(EpisodeStaus.TORRENT_NOT_FOUND);
-					
+									
 					LOGGER.info("Episode not found: {}", episodeModel.toString());
 					return;
 				}
@@ -244,10 +232,7 @@ public class MainController implements Initializable {
 				Collections.sort(searchResults, multiComparator);
 
 				PirateBaySearchResultItem resultItem = searchResults.get(0);
-				if (resultItem != null) {
-					// Change episode status
-					episodeModel.setEpisodeStaus(EpisodeStaus.DOWNLOADING_TORRENT);
-					
+				if (resultItem != null) {					
 					LOGGER.debug(resultItem.toString());
 				}
 

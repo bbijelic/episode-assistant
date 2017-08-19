@@ -27,20 +27,20 @@ public class EpisodeCalendarEpisodeProvider implements EpisodesProvider {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EpisodeCalendarEpisodeProvider.class);
 
-    @Override
-    public String getAuthor() {
-        return "Bojan Bijelić";
-    }
-    
-    @Override
-    public String getDescription() {
-        return "Episode calendar provider for the episodes to be downloaded";
-    }
-    
-    @Override
-    public String getName() {
-        return "EpisodeCalendar.com Episode Provider";
-    }
+	@Override
+	public String getAuthor() {
+		return "Bojan Bijelić";
+	}
+
+	@Override
+	public String getDescription() {
+		return "Episode calendar provider for the episodes to be downloaded";
+	}
+
+	@Override
+	public String getName() {
+		return "EpisodeCalendar.com Episode Provider";
+	}
 
 	@Override
 	@SuppressWarnings("rawtypes")
@@ -104,4 +104,10 @@ public class EpisodeCalendarEpisodeProvider implements EpisodesProvider {
 		}
 
 	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
+
 }
