@@ -36,12 +36,12 @@ public class PirateBaySearchTest {
 	public void searchTest() {
 
 		// Pirate bay search instance
-		PirateBaySearch pirateBaySearch = new PirateBaySearch();
+		PirateBaySearchProvider pirateBaySearch = new PirateBaySearchProvider();
 
 		// Test episode
 		Episode episode = new EpisodeTestImpl("Scorpion", "Rock Block", 3, 21, "No summary");
 
-		List<PirateBaySearchResultItem> searchResults = pirateBaySearch.search(episode);
+		List<Torrent> searchResults = pirateBaySearch.search(episode);
 		assertFalse(searchResults.isEmpty());
 
 		// Keywords priority

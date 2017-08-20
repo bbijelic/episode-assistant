@@ -2,7 +2,6 @@ package com.github.bbijelic.torrent.providers.torrents.magnet.piratebay;
 
 import java.util.Calendar;
 
-import com.github.bbijelic.torrent.core.episodes.Episode;
 import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 
 /**
@@ -36,7 +35,7 @@ public class PirateBaySearchResultItem implements Torrent {
 	 */
 	public PirateBaySearchResultItem(final String type, final String name, final Calendar uploaded, final long size,
 			final String uploadedBy, final int seeders, final int leechers, final String magnetLink,
-			final String infoHash, Episode episode) {
+			final String infoHash) {
 
 		this.type = type;
 		this.name = name;
@@ -47,7 +46,6 @@ public class PirateBaySearchResultItem implements Torrent {
 		this.leechers = leechers;
 		this.magnetLink = magnetLink;
 		this.infoHash = infoHash;
-		this.episode = episode;
 	}
 
 	/**
@@ -144,18 +142,10 @@ public class PirateBaySearchResultItem implements Torrent {
 		return magnetLink;
 	}
 
-	private Episode episode;
-
-	@Override
-	public Episode getEpisode() {
-		return episode;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((episode == null) ? 0 : episode.hashCode());
 		result = prime * result + ((infoHash == null) ? 0 : infoHash.hashCode());
 		result = prime * result + leechers;
 		result = prime * result + ((magnetLink == null) ? 0 : magnetLink.hashCode());
@@ -177,11 +167,6 @@ public class PirateBaySearchResultItem implements Torrent {
 		if (getClass() != obj.getClass())
 			return false;
 		PirateBaySearchResultItem other = (PirateBaySearchResultItem) obj;
-		if (episode == null) {
-			if (other.episode != null)
-				return false;
-		} else if (!episode.equals(other.episode))
-			return false;
 		if (infoHash == null) {
 			if (other.infoHash != null)
 				return false;
@@ -242,8 +227,6 @@ public class PirateBaySearchResultItem implements Torrent {
 		builder.append(infoHash);
 		builder.append(", magnetLink=");
 		builder.append(magnetLink);
-		builder.append(", episode=");
-		builder.append(episode);
 		builder.append("]");
 		return builder.toString();
 	}

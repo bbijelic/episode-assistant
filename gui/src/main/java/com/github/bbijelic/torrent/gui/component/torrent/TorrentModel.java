@@ -5,7 +5,6 @@ package com.github.bbijelic.torrent.gui.component.torrent;
 
 import java.util.Calendar;
 
-import com.github.bbijelic.torrent.core.episodes.Episode;
 import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -31,7 +30,7 @@ public class TorrentModel implements Torrent {
 	public SimpleStringProperty nameProperty() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name.set(name);
 	}
@@ -125,49 +124,18 @@ public class TorrentModel implements Torrent {
 		return magnetLink;
 	}
 
-	private Episode episode;
-
-	@Override
-	public Episode getEpisode() {
-		return this.episode;
-	}
-
 	private Torrent torrent;
 
 	public Torrent getTorrent() {
 		return this.torrent;
 	}
 
-	private SimpleStringProperty showName;
-
-	public SimpleStringProperty showNameProperty() {
-		return showName;
-	}
-
-	private SimpleStringProperty episodeName;
-
-	public SimpleStringProperty episodeNameProperty() {
-		return episodeName;
-	}
-
-	private SimpleIntegerProperty seasonNumber;
-
-	public SimpleIntegerProperty seasonNumberProperty() {
-		return seasonNumber;
-	}
-
-	private SimpleIntegerProperty episodeNumber;
-
-	public SimpleIntegerProperty episodeNumberProperty() {
-		return episodeNumber;
-	}
-	
 	private SimpleDoubleProperty progress;
-	
+
 	public SimpleDoubleProperty progressProperty() {
 		return progress;
 	}
-	
+
 	public void setProgress(double progress) {
 		this.progress.set(progress);
 	}
@@ -175,12 +143,6 @@ public class TorrentModel implements Torrent {
 	public TorrentModel(final Torrent torrent) {
 
 		this.torrent = torrent;
-		this.episode = torrent.getEpisode();
-
-		this.showName = new SimpleStringProperty(episode.getShowName());
-		this.episodeName = new SimpleStringProperty(episode.getEpisodeName());
-		this.seasonNumber = new SimpleIntegerProperty(episode.getSeasonNumber());
-		this.episodeNumber = new SimpleIntegerProperty(episode.getEpisodeNumber());
 
 		this.name = new SimpleStringProperty(torrent.getName());
 		this.type = new SimpleStringProperty(torrent.getType());
@@ -217,18 +179,10 @@ public class TorrentModel implements Torrent {
 		builder.append(infoHash);
 		builder.append(", magnetLink=");
 		builder.append(magnetLink);
-		builder.append(", episode=");
-		builder.append(episode);
 		builder.append(", torrent=");
 		builder.append(torrent);
-		builder.append(", showName=");
-		builder.append(showName);
-		builder.append(", episodeName=");
-		builder.append(episodeName);
-		builder.append(", seasonNumber=");
-		builder.append(seasonNumber);
-		builder.append(", episodeNumber=");
-		builder.append(episodeNumber);
+		builder.append(", progress=");
+		builder.append(progress);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -237,16 +191,12 @@ public class TorrentModel implements Torrent {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((episode == null) ? 0 : episode.hashCode());
-		result = prime * result + ((episodeName == null) ? 0 : episodeName.hashCode());
-		result = prime * result + ((episodeNumber == null) ? 0 : episodeNumber.hashCode());
 		result = prime * result + ((infoHash == null) ? 0 : infoHash.hashCode());
 		result = prime * result + ((leechers == null) ? 0 : leechers.hashCode());
 		result = prime * result + ((magnetLink == null) ? 0 : magnetLink.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((seasonNumber == null) ? 0 : seasonNumber.hashCode());
+		result = prime * result + ((progress == null) ? 0 : progress.hashCode());
 		result = prime * result + ((seeders == null) ? 0 : seeders.hashCode());
-		result = prime * result + ((showName == null) ? 0 : showName.hashCode());
 		result = prime * result + ((size == null) ? 0 : size.hashCode());
 		result = prime * result + ((torrent == null) ? 0 : torrent.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
@@ -265,21 +215,6 @@ public class TorrentModel implements Torrent {
 		if (getClass() != obj.getClass())
 			return false;
 		TorrentModel other = (TorrentModel) obj;
-		if (episode == null) {
-			if (other.episode != null)
-				return false;
-		} else if (!episode.equals(other.episode))
-			return false;
-		if (episodeName == null) {
-			if (other.episodeName != null)
-				return false;
-		} else if (!episodeName.equals(other.episodeName))
-			return false;
-		if (episodeNumber == null) {
-			if (other.episodeNumber != null)
-				return false;
-		} else if (!episodeNumber.equals(other.episodeNumber))
-			return false;
 		if (infoHash == null) {
 			if (other.infoHash != null)
 				return false;
@@ -300,20 +235,15 @@ public class TorrentModel implements Torrent {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (seasonNumber == null) {
-			if (other.seasonNumber != null)
+		if (progress == null) {
+			if (other.progress != null)
 				return false;
-		} else if (!seasonNumber.equals(other.seasonNumber))
+		} else if (!progress.equals(other.progress))
 			return false;
 		if (seeders == null) {
 			if (other.seeders != null)
 				return false;
 		} else if (!seeders.equals(other.seeders))
-			return false;
-		if (showName == null) {
-			if (other.showName != null)
-				return false;
-		} else if (!showName.equals(other.showName))
 			return false;
 		if (size == null) {
 			if (other.size != null)

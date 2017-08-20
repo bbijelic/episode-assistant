@@ -2,8 +2,6 @@ package com.github.bbijelic.torrent.core.torrents.magnet;
 
 import java.util.Calendar;
 
-import com.github.bbijelic.torrent.core.episodes.Episode;
-
 /**
  * Result item
  * 
@@ -74,12 +72,5 @@ public interface Torrent {
 	 * @return
 	 */
 	String getMagnetLink();
-
-	/**
-	 * Returns the episode this torrent is for
-	 * 
-	 * @return the episode
-	 */
-	Episode getEpisode();
 
 }

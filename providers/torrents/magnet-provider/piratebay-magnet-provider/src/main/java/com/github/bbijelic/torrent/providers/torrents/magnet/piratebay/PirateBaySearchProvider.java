@@ -20,15 +20,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.bbijelic.torrent.core.episodes.Episode;
+import com.github.bbijelic.torrent.core.torrents.magnet.SearchProvider;
+import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 
 /**
  * PirateBay search handler implementation
  * 
  * @author Bojan Bijelić
  */
-public class PirateBaySearch implements SearchInterface {
+public class PirateBaySearchProvider implements SearchProvider {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(PirateBaySearch.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PirateBaySearchProvider.class);
 
 	/**
 	 * The pirate bay search url template
@@ -48,7 +50,7 @@ public class PirateBaySearch implements SearchInterface {
 	/**
 	 * Constructor
 	 */
-	public PirateBaySearch() {
+	public PirateBaySearchProvider() {
 		// Format strings
 		supportedDateFormats = new ArrayList<String>(2);
 		supportedDateFormats.add("MM-dd HH:mm");
@@ -57,7 +59,7 @@ public class PirateBaySearch implements SearchInterface {
 	}
 
 	@Override
-	public List<PirateBaySearchResultItem> search(final Episode episode) {
+	public List<Torrent> search(final Episode episode) {
 		LOGGER.debug("ENTER: search(); episode={}", episode.toString());
 
 		StringBuilder searchSlugBuilder = new StringBuilder();
@@ -65,11 +67,18 @@ public class PirateBaySearch implements SearchInterface {
 		searchSlugBuilder.append(".");
 		searchSlugBuilder.append(String.format("s%02de%02d", episode.getSeasonNumber(), episode.getEpisodeNumber()));
 
-		// Create search url
-		String url = PIRATE_BAY_SEARCH_URL_TMPL.replace("{SEARCH_SLUG}", searchSlugBuilder.toString());
+		List<Torrent> resultSet = search(searchSlugBuilder.toString());
+		LOGGER.debug("LEAVING: search(); resultSet={}", resultSet);
+		return resultSet;
+	}
 
+	@Override
+	public List<Torrent> search(final String input) {
 		// Resulting list
-		List<PirateBaySearchResultItem> resultSet = new ArrayList<PirateBaySearchResultItem>();
+		List<Torrent> resultSet = new ArrayList<Torrent>();
+
+		// Create search url
+		String url = PIRATE_BAY_SEARCH_URL_TMPL.replace("{SEARCH_SLUG}", input);
 
 		try {
 
@@ -110,7 +119,7 @@ public class PirateBaySearch implements SearchInterface {
 					int seeders = Integer.valueOf(rowElement.select("td:eq(5)").text());
 
 					// Get leechers
-					int leechers = Integer.valueOf(rowElement.select("td:eq(5)").text());
+					int leechers = Integer.valueOf(rowElement.select("td:eq(6)").text());
 
 					// Get uploaded by
 					String uploadedBy = rowElement.select("td:eq(7)").text();
@@ -163,7 +172,7 @@ public class PirateBaySearch implements SearchInterface {
 					}
 
 					PirateBaySearchResultItem pirateBaySearchResultItem = new PirateBaySearchResultItem(type, name,
-							uploadedCalendar, byteSize, uploadedBy, seeders, leechers, magnetLink, infoHash, episode);
+							uploadedCalendar, byteSize, uploadedBy, seeders, leechers, magnetLink, infoHash);
 
 					resultSet.add(pirateBaySearchResultItem);
 
@@ -175,8 +184,26 @@ public class PirateBaySearch implements SearchInterface {
 			LOGGER.warn("Failed to get search result: " + ioe.getMessage());
 		}
 
-		LOGGER.debug("LEAVING: search(); resultSet={}", resultSet);
 		return resultSet;
 	}
 
+	@Override
+	public String getName() {
+		return "PirateBay.org";
+	}
+
+	@Override
+	public String getDescription() {
+		return "PirateBay.org Search Provider";
+	}
+
+	@Override
+	public String getAuthor() {
+		return "Bojan Bijelic";
+	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

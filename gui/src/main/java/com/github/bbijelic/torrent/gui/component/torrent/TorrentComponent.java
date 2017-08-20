@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.github.bbijelic.torrent.core.events.Events;
 import com.github.bbijelic.torrent.core.events.FindTorrentEvent;
 import com.github.bbijelic.torrent.core.events.TorrentProgressEvent;
+import com.github.bbijelic.torrent.gui.component.torrent.search.SearchTorrentController;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.FXCollections;
@@ -53,7 +54,7 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 
 	@FXML
 	private TableColumn<TorrentModel, Double> progressColumn;
-	
+
 	/**
 	 * Constructor
 	 */
@@ -66,16 +67,16 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 		// Register to receive events from other components via Guava event bus
 		Events.getInstance().register(this);
 	}
-	
+
 	@Subscribe
 	private void handleTorrentProgressEvent(TorrentProgressEvent e) {
 		itemsList.forEach(new Consumer<TorrentModel>() {
 			@Override
 			public void accept(TorrentModel torrentModel) {
-				if(torrentModel.getInfoHash().equalsIgnoreCase(e.getTorrent().getInfoHash())) {
+				if (torrentModel.getInfoHash().equalsIgnoreCase(e.getTorrent().getInfoHash())) {
 					torrentModel.setProgress(e.getProgress());
 				}
-				
+
 			}
 		});
 	}
@@ -89,8 +90,9 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 	}
 
 	@FXML
-	private void onAddTorrentBtnAction(ActionEvent e) {
-
+	private void onSearchTorrentBtnAction(ActionEvent e) {
+		LOGGER.debug("Handling onSearchTorrentBtnAction event: {}", e.toString());
+		SearchTorrentController.showDialog();
 	}
 
 	@FXML
@@ -108,14 +110,9 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 
 	}
 
-	@FXML
-	private void onSearchTorrentBtnAction(ActionEvent e) {
-
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		progressColumn.setCellValueFactory(new PropertyValueFactory<TorrentModel, Double>("progress") );
+		progressColumn.setCellValueFactory(new PropertyValueFactory<TorrentModel, Double>("progress"));
 		progressColumn.setCellFactory(ProgressBarTableCell.<TorrentModel>forTableColumn());
 		torrentsTableView.setItems(itemsList);
 	}

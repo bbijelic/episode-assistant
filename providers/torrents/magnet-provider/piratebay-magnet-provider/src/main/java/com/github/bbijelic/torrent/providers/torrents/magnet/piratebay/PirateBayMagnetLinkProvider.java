@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.github.bbijelic.torrent.core.episodes.Episode;
 import com.github.bbijelic.torrent.core.torrents.magnet.MagnetLinkProvider;
 import com.github.bbijelic.torrent.core.torrents.magnet.MagnetLinkProviderException;
+import com.github.bbijelic.torrent.core.torrents.magnet.SearchProvider;
 import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.MultiComparator;
 
@@ -47,8 +48,8 @@ public class PirateBayMagnetLinkProvider implements MagnetLinkProvider {
 		LOGGER.debug("ENTER: getInfoHash(); episode={}", episode.toString());
 
 		// Get instance of search interface and search for episode
-		SearchInterface searchInterface = new PirateBaySearch();
-		List<PirateBaySearchResultItem> resultList = searchInterface.search(episode);
+		SearchProvider searchInterface = new PirateBaySearchProvider();
+		List<Torrent> resultList = searchInterface.search(episode);
 
 		// Multi comparator instance
 		MultiComparator<Torrent> multiComparator = new MultiComparator<Torrent>(comparators);

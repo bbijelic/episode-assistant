@@ -62,12 +62,15 @@
 					</cellValueFactory>
 				</TableColumn>
 				<TableColumn fx:id="releaseDateColumn" minWidth="150.0"
-					prefWidth="150.0" text="Release Date">
+					prefWidth="150.0" text="Release Date" sortType="DESCENDING">
 					<cellValueFactory>
 						<PropertyValueFactory property="releaseDate" />
 					</cellValueFactory>
 				</TableColumn>
 			</columns>
+			<sortOrder>
+				<fx:reference source="releaseDateColumn" />
+			</sortOrder>  
 			<contextMenu>
 				<ContextMenu>
 					<items>

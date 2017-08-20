@@ -153,7 +153,7 @@ public class BtTorrentClientProvider implements TorrentClientProvider {
 	@Override
 	public void startDownload(Torrent torrent) throws TorrentClientException {
 		// Client
-		BtClient client = Bt.client(btRuntime).storage(storage).magnet("magnet:?xt=urn:btih:" + torrent.getInfoHash()).build();
+		BtClient client = Bt.client(btRuntime).storage(storage).magnet(torrent.getMagnetLink()).build();
 		clientMap.put(torrent.getInfoHash(), client);
 		client.startAsync(new TorrentSessionStateConsumer(torrent, client), 1000);
 	}

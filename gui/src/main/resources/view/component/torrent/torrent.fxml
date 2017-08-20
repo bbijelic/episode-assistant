@@ -20,8 +20,8 @@
 		<children>
 			<HBox>
 				<children>
-					<Button fx:id="addTorrentBtn" mnemonicParsing="false" text="Add Torrent"
-						onAction="#onAddTorrentBtnAction">
+					<Button fx:id="searchTorrentBtn" mnemonicParsing="false" text="Search Torrent"
+						onAction="#onSearchTorrentBtnAction">
 						<HBox.margin>
 							<Insets right="5.0" />
 						</HBox.margin>
@@ -44,23 +44,6 @@
 							<Insets right="5.0" />
 						</HBox.margin>
 					</Button>
-					<Separator orientation="VERTICAL" />
-					<TextField fx:id="searchTorrentTxt" promptText="Search torrent...">
-						<HBox.margin>
-							<Insets right="5.0" />
-						</HBox.margin>
-					</TextField>
-					<ComboBox fx:id="torrentProviderMenu" prefWidth="150.0">
-						<HBox.margin>
-							<Insets right="5.0" />
-						</HBox.margin>
-					</ComboBox>
-					<Button fx:id="searchTorrentBtn" mnemonicParsing="false"
-						text="Search" onAction="#onSearchTorrentBtnAction">
-						<HBox.margin>
-							<Insets right="5.0" />
-						</HBox.margin>
-					</Button>
 				</children>
 				<padding>
 					<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -71,26 +54,6 @@
 					<Insets right="5.0" bottom="5.0" left="5.0" top="0.0" />
 				</VBox.margin>
 				<columns>
-					<TableColumn prefWidth="150.0" text="Show Name">
-						<cellValueFactory>
-							<PropertyValueFactory property="showName" />
-						</cellValueFactory>
-					</TableColumn>
-					<TableColumn visible="false" prefWidth="200.0" text="Episode Name">
-						<cellValueFactory>
-							<PropertyValueFactory property="episodeName" />
-						</cellValueFactory>
-					</TableColumn>
-					<TableColumn prefWidth="60.0" text="Season">
-						<cellValueFactory>
-							<PropertyValueFactory property="seasonNumber" />
-						</cellValueFactory>
-					</TableColumn>
-					<TableColumn prefWidth="60.0" text="Episode">
-						<cellValueFactory>
-							<PropertyValueFactory property="episodeNumber" />
-						</cellValueFactory>
-					</TableColumn>
 					<TableColumn prefWidth="300.0" text="Torrent Name">
 						<cellValueFactory>
 							<PropertyValueFactory property="name" />
