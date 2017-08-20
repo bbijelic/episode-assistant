@@ -4,20 +4,24 @@
 package com.github.bbijelic.torrent.gui.component.torrent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.ServiceLoader;
+import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.bbijelic.torrent.core.episodes.Episode;
-import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.PirateBaySearch;
-import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.PirateBaySearchResultItem;
+import com.github.bbijelic.torrent.core.events.Events;
+import com.github.bbijelic.torrent.core.events.StartDownloadTorrentEvent;
+import com.github.bbijelic.torrent.core.torrents.magnet.MagnetLinkProvider;
+import com.github.bbijelic.torrent.core.torrents.magnet.MagnetLinkProviderException;
+import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.KeywordComparator;
-import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.MultiComparator;
 import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.PopularityComparator;
 import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.SizeComparator;
 
@@ -60,56 +64,65 @@ public class TorrentDownloadRequestWorker implements Runnable {
 		// Keywords priority
 		Map<String, Integer> keywordsPriority = new HashMap<String, Integer>();
 		keywordsPriority.put("KILLERS", 2);
-		keywordsPriority.put("FUM", 2);
+		keywordsPriority.put("FUM", 3);
 		keywordsPriority.put("MTB", 2);
 		keywordsPriority.put("DEFLATE", 1);
 		keywordsPriority.put("LOL", 3);
-		keywordsPriority.put("FLEET", 1);
-		keywordsPriority.put("DIMENSION", 1);
+		keywordsPriority.put("FLEET", 2);
+		keywordsPriority.put("DIMENSION", 2);
 		keywordsPriority.put("[ettv]", 2);
-		keywordsPriority.put("x264", 3);
+		keywordsPriority.put("SVA", 2);
+		keywordsPriority.put("AVS", 3);
 
 		// Quality priority
 		Map<String, Integer> qualityPriority = new HashMap<String, Integer>();
+		qualityPriority.put("720p", 5);
+		qualityPriority.put("1080p", 10);
 		qualityPriority.put("HDTV", 3);
 		qualityPriority.put("WEBRIP", 2);
 		qualityPriority.put("WEB-RIP", 2);
 		qualityPriority.put("WEBDL", 2);
 		qualityPriority.put("WEB DL", 2);
 		qualityPriority.put("WEB-DL", 2);
+		qualityPriority.put("x264", 5);
 		qualityPriority.put("x265", 0);
 		qualityPriority.put("HEVC", 0);
 
-		// Pirate bay search instance
-		PirateBaySearch pirateBaySearch = new PirateBaySearch();
-		List<PirateBaySearchResultItem> searchResults = pirateBaySearch.search(episode);
-
-		if (searchResults.isEmpty()) {
-			LOGGER.info("Episode not found: {}", episode.toString());
-			return;
-		}
-
 		// List of comparators
-		List<Comparator<PirateBaySearchResultItem>> comparatorList = new ArrayList<Comparator<PirateBaySearchResultItem>>();
-
+		List<Comparator<Torrent>> comparatorList = new ArrayList<Comparator<Torrent>>();
 		comparatorList.add(new KeywordComparator(keywordsPriority));
 		comparatorList.add(new KeywordComparator(qualityPriority));
 		comparatorList.add(new PopularityComparator());
 		comparatorList.add(new SizeComparator());
 
-		// Multi comparator instance
-		MultiComparator<PirateBaySearchResultItem> multiComparator = new MultiComparator<PirateBaySearchResultItem>(
-				comparatorList);
+		// Instance of service loader for the magnet link providers
+		ServiceLoader<MagnetLinkProvider> episodeProviderServiceLoader = ServiceLoader.load(MagnetLinkProvider.class);
+		episodeProviderServiceLoader.forEach(new Consumer<MagnetLinkProvider>() {
 
-		Collections.sort(searchResults, multiComparator);
+			@Override
+			public void accept(MagnetLinkProvider magnetLinkProvider) {
+				LOGGER.debug("Handling magnet link provider: {}", magnetLinkProvider.toString());
 
-		PirateBaySearchResultItem resultItem = searchResults.get(0);
-		if (resultItem != null) {
-			LOGGER.debug("Preparing to download: {}", resultItem.toString());
+				try {
 
-			itemsList.add(new TorrentModel(episode.getShowName(), episode.getEpisodeName(), episode.getSeasonNumber(),
-					episode.getEpisodeNumber(), episode.getSummary(), resultItem.getName()));
-		}
+					// Find the torrent (magnet link) for the episode
+					Optional<Torrent> torrentOptional = magnetLinkProvider.getResultItem(episode, comparatorList);
+					
+					if(torrentOptional.isPresent()) {
+						// If torrent found
+						Torrent torrent = torrentOptional.get();
+						LOGGER.debug("Starting download: {}", torrent.toString());
+						// Add torrent to the table
+						itemsList.add(new TorrentModel(torrent));
+						// Post event to start downloading torrent
+						Events.getInstance().post(new StartDownloadTorrentEvent(torrent));
+					}
+
+				} catch (MagnetLinkProviderException e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+			}
+		});
 
 	}
 

@@ -3,12 +3,14 @@ package com.github.bbijelic.torrent.gui.component.torrent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.bbijelic.torrent.gui.event.DownloadRequestEvent;
-import com.github.bbijelic.torrent.gui.main.Main;
+import com.github.bbijelic.torrent.core.events.Events;
+import com.github.bbijelic.torrent.core.events.FindTorrentEvent;
+import com.github.bbijelic.torrent.core.events.TorrentProgressEvent;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.FXCollections;
@@ -17,7 +19,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ProgressBarTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -46,6 +51,9 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 	 */
 	private ObservableList<TorrentModel> itemsList = FXCollections.observableArrayList();
 
+	@FXML
+	private TableColumn<TorrentModel, Double> progressColumn;
+	
 	/**
 	 * Constructor
 	 */
@@ -56,11 +64,24 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 		fxmlLoader.load();
 
 		// Register to receive events from other components via Guava event bus
-		Main.getEventBus().register(this);
+		Events.getInstance().register(this);
+	}
+	
+	@Subscribe
+	private void handleTorrentProgressEvent(TorrentProgressEvent e) {
+		itemsList.forEach(new Consumer<TorrentModel>() {
+			@Override
+			public void accept(TorrentModel torrentModel) {
+				if(torrentModel.getInfoHash().equalsIgnoreCase(e.getTorrent().getInfoHash())) {
+					torrentModel.setProgress(e.getProgress());
+				}
+				
+			}
+		});
 	}
 
 	@Subscribe
-	private void handleDownloadRequestEvent(DownloadRequestEvent e) {
+	private void handleDownloadRequestEvent(FindTorrentEvent e) {
 		LOGGER.debug("Download request: {}", e.toString());
 		Thread worker = new Thread(new TorrentDownloadRequestWorker(itemsList, e.getEpisode()));
 		worker.setName(TorrentDownloadRequestWorker.class.getSimpleName());
@@ -94,6 +115,8 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		progressColumn.setCellValueFactory(new PropertyValueFactory<TorrentModel, Double>("progress") );
+		progressColumn.setCellFactory(ProgressBarTableCell.<TorrentModel>forTableColumn());
 		torrentsTableView.setItems(itemsList);
 	}
 }

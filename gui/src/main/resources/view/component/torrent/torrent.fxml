@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.cell.ProgressBarTableCell?>
 
 <fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml">
 	<VBox layoutX="477.0" layoutY="100.0" prefHeight="375.0"
@@ -70,32 +71,52 @@
 					<Insets right="5.0" bottom="5.0" left="5.0" top="0.0" />
 				</VBox.margin>
 				<columns>
-					<TableColumn minWidth="200.0" prefWidth="200.0" text="Show Name">
+					<TableColumn prefWidth="150.0" text="Show Name">
 						<cellValueFactory>
 							<PropertyValueFactory property="showName" />
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn minWidth="200.0" prefWidth="200.0" text="Episode Name">
+					<TableColumn visible="false" prefWidth="200.0" text="Episode Name">
 						<cellValueFactory>
 							<PropertyValueFactory property="episodeName" />
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn minWidth="100.0" prefWidth="100.0" text="Season">
+					<TableColumn prefWidth="60.0" text="Season">
 						<cellValueFactory>
 							<PropertyValueFactory property="seasonNumber" />
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn minWidth="100.0" prefWidth="100.0" text="Episode">
+					<TableColumn prefWidth="60.0" text="Episode">
 						<cellValueFactory>
 							<PropertyValueFactory property="episodeNumber" />
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn minWidth="250.0" prefWidth="250.0" text="Torrent Name">
+					<TableColumn prefWidth="300.0" text="Torrent Name">
 						<cellValueFactory>
-							<PropertyValueFactory property="torrentName" />
+							<PropertyValueFactory property="name" />
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn minWidth="250.0" prefWidth="250.0" text="Progress">
+					<TableColumn prefWidth="70.0" text="Seeders">
+						<cellValueFactory>
+							<PropertyValueFactory property="seeders" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn prefWidth="70.0" text="Leechers">
+						<cellValueFactory>
+							<PropertyValueFactory property="leechers" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn prefWidth="90.0" text="Uploaded By">
+						<cellValueFactory>
+							<PropertyValueFactory property="uploadedBy" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn prefWidth="90.0" text="Size">
+						<cellValueFactory>
+							<PropertyValueFactory property="size" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn  fx:id="progressColumn" prefWidth="230.0" text="Progress">
 						<cellValueFactory>
 							<PropertyValueFactory property="progress" />
 						</cellValueFactory>

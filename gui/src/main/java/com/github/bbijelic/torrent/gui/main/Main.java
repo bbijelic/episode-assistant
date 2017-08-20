@@ -5,7 +5,7 @@ import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.eventbus.EventBus;
+import com.github.bbijelic.torrent.providers.torrents.client.bt.BtTorrentClientProvider;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,21 +16,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-	// Event bus
-	private static EventBus eventBus = new EventBus();
-	
-	/**
-	 * Event bus getter
-	 * @return
-	 */
-	public synchronized static EventBus getEventBus() {
-		return eventBus;
-	}
-		
+	private static BtTorrentClientProvider torrentClientProvider;
+
 	public static void main(String[] args) {
+		torrentClientProvider = new BtTorrentClientProvider();
 		launch(args);
 	}
 
@@ -38,7 +30,7 @@ public class Main extends Application {
 	 * Root pane
 	 */
 	private static BorderPane rootPane = new BorderPane();
-	
+
 	/**
 	 * Root pane getter
 	 * 
@@ -58,13 +50,13 @@ public class Main extends Application {
 		// Main pane
 		URL mainPaneUrl = getClass().getClassLoader().getResource("view/episode-assistant.fxml");
 		SplitPane mainPane = FXMLLoader.load(mainPaneUrl);
-	
+
 		rootPane.setTop(menuBar);
 		rootPane.setCenter(mainPane);
-		
+
 		// Setting up the scene
 		Scene scene = new Scene(rootPane, 1920, 1080);
-		
+
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Episode Assistant");
 		primaryStage.setMaximized(true);

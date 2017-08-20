@@ -35,5 +35,10 @@
 			<artifactId>episode-assistant-providers-torrents-magnet-piratebay</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.bbijelic</groupId>
+			<artifactId>episode-assistant-providers-torrents-client-bt</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

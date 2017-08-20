@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.bbijelic.torrent.gui.event.DownloadRequestEvent;
-import com.github.bbijelic.torrent.gui.main.Main;
+import com.github.bbijelic.torrent.core.events.Events;
+import com.github.bbijelic.torrent.core.events.FindTorrentEvent;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,7 +75,7 @@ public class CalendarComponent extends AnchorPane implements Initializable {
 		EpisodeModel episodeModel = calendarTableView.getSelectionModel().getSelectedItem();
 		if (episodeModel != null) {
 			// Publish download request event
-			Main.getEventBus().post(new DownloadRequestEvent(episodeModel));
+			Events.getInstance().post(new FindTorrentEvent(episodeModel));
 		}
 	}
 

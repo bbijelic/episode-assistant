@@ -17,8 +17,10 @@ import javax.persistence.UniqueConstraint;
  *
  */
 @Entity
-@Table(name = "torrent", uniqueConstraints = { @UniqueConstraint(columnNames = { "show_name", "episode_name", "season",
-		"episode" }, name = "torrent_showname_episode_name_season_episode_uq") })
+@Table(name = "torrent", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "show_name", "episode_name", "season",
+				"episode" }, name = "torrent_showname_episode_name_season_episode_uq"),
+		@UniqueConstraint(columnNames = { "info_hash" }, name = "torrent_info_hash_uq") })
 public class Torrent {
 
 	/**
@@ -149,6 +151,31 @@ public class Torrent {
 	}
 
 	/**
+	 * Torrent info hash
+	 */
+	@Column(name = "info_hash", insertable = true, updatable = true, nullable = false)
+	private String infoHash;
+
+	/**
+	 * Info hash getter
+	 * 
+	 * @return the info hash
+	 */
+	public String getInfoHash() {
+		return infoHash;
+	}
+
+	/**
+	 * Info hash setter
+	 * 
+	 * @param infoHash
+	 *            the info hash
+	 */
+	public void setInfoHash(String infoHash) {
+		this.infoHash = infoHash;
+	}
+
+	/**
 	 * Magnet link
 	 */
 	@Column(name = "magnet_link", insertable = true, updatable = true, nullable = false)
@@ -211,6 +238,8 @@ public class Torrent {
 		builder.append(season);
 		builder.append(", episode=");
 		builder.append(episode);
+		builder.append(", infoHash=");
+		builder.append(infoHash);
 		builder.append(", magnetLink=");
 		builder.append(magnetLink);
 		builder.append(", state=");
@@ -226,6 +255,7 @@ public class Torrent {
 		result = prime * result + episode;
 		result = prime * result + ((episodeName == null) ? 0 : episodeName.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((infoHash == null) ? 0 : infoHash.hashCode());
 		result = prime * result + ((magnetLink == null) ? 0 : magnetLink.hashCode());
 		result = prime * result + season;
 		result = prime * result + ((showName == null) ? 0 : showName.hashCode());
@@ -250,6 +280,11 @@ public class Torrent {
 		} else if (!episodeName.equals(other.episodeName))
 			return false;
 		if (id != other.id)
+			return false;
+		if (infoHash == null) {
+			if (other.infoHash != null)
+				return false;
+		} else if (!infoHash.equals(other.infoHash))
 			return false;
 		if (magnetLink == null) {
 			if (other.magnetLink != null)

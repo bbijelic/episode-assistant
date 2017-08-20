@@ -74,6 +74,7 @@ public class TorrentRepositoryTest {
 			torrent.setSeason(season);
 			torrent.setEpisode(episode);
 			torrent.setState(TorrentState.GETTING_METADATA);
+			torrent.setInfoHash("45a1b9a220d26529ab1d5147e942a5d9a1dec83e");
 			torrent.setMagnetLink("magnet:?xt=urn:btih:45a1b9a220d26529ab1d5147e942a5d9a1dec83e");
 
 			// Persist torrent

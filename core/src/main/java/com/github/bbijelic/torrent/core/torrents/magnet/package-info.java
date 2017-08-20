@@ -1,5 +1,5 @@
 /**
- * Torrent info hash provider core package
+ * Torrent magnet provider core package
  * 
  * @author Bojan Bijelić
  */

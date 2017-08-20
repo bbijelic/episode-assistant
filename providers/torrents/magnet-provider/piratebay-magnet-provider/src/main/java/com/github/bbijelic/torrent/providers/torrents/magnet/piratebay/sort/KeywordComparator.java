@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.PirateBaySearchResultItem;
+import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 
 /**
  * Keyword comparator
  * 
  * @author Bojan Bijelić
  */
-public class KeywordComparator implements Comparator<PirateBaySearchResultItem> {
+public class KeywordComparator implements Comparator<Torrent> {
     
     /**
      * Keyword priority
@@ -29,7 +29,7 @@ public class KeywordComparator implements Comparator<PirateBaySearchResultItem> 
     }
     
     @Override
-    public int compare(PirateBaySearchResultItem o1, PirateBaySearchResultItem o2) {
+    public int compare(Torrent o1, Torrent o2) {
         String o1name = o1.getName().toLowerCase().trim();
         String o2name = o2.getName().toLowerCase().trim();
         
