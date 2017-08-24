@@ -1,4 +1,4 @@
-package com.github.bbijelic.torrent.gui.component.torrent.search;
+package com.github.bbijelic.torrent.gui.component.torrent.search.service;
 
 import java.util.List;
 

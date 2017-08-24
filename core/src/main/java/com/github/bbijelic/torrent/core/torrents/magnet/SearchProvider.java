@@ -15,16 +15,22 @@ public interface SearchProvider extends Provider {
 
 	/**
 	 * Search by episode
-	 * @param episode the episode
+	 * 
+	 * @param episode
+	 *            the episode
 	 * @return the list of torrents
+	 * @throws SearchProviderException
 	 */
-	List<Torrent> search(Episode episode);
-	
+	List<Torrent> search(Episode episode) throws SearchProviderException;
+
 	/**
+	 * Search by search input string
 	 * 
 	 * @param input
-	 * @return
+	 *            the input string
+	 * @return the list of torrents
+	 * @throws SearchProviderException
 	 */
-	List<Torrent> search(String input);
-	
+	List<Torrent> search(String input) throws SearchProviderException;
+
 }

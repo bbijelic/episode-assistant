@@ -12,6 +12,7 @@ import com.github.bbijelic.torrent.core.episodes.Episode;
 import com.github.bbijelic.torrent.core.torrents.magnet.MagnetLinkProvider;
 import com.github.bbijelic.torrent.core.torrents.magnet.MagnetLinkProviderException;
 import com.github.bbijelic.torrent.core.torrents.magnet.SearchProvider;
+import com.github.bbijelic.torrent.core.torrents.magnet.SearchProviderException;
 import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.MultiComparator;
 
@@ -49,7 +50,15 @@ public class PirateBayMagnetLinkProvider implements MagnetLinkProvider {
 
 		// Get instance of search interface and search for episode
 		SearchProvider searchInterface = new PirateBaySearchProvider();
-		List<Torrent> resultList = searchInterface.search(episode);
+		List<Torrent> resultList;
+
+		try {
+
+			// Do the search
+			resultList = searchInterface.search(episode);
+		} catch (SearchProviderException e) {
+			throw new MagnetLinkProviderException(getName() + " failed to obtain torrent information", e);
+		}
 
 		// Multi comparator instance
 		MultiComparator<Torrent> multiComparator = new MultiComparator<Torrent>(comparators);

@@ -6,25 +6,29 @@ package com.github.bbijelic.torrent.core.torrents.magnet;
  * @author Bojan Bijelić
  */
 public class MagnetLinkProviderException extends Exception {
-    
-    private static final long serialVersionUID = 1L;
-    
-    /**
-	 * Constructor
-	 * 
-	 * @param message the exception message
-	 */
-	public MagnetLinkProviderException(String message){
-		super(message);
-	}
-	
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Constructor
 	 * 
-	 * @param cause the cause of exception
+	 * @param message
+	 *            the exception message
 	 */
-	public MagnetLinkProviderException(Throwable cause){
-		super(cause.getMessage(), cause);
+	public MagnetLinkProviderException(final String message) {
+		super(message);
 	}
-    
+
+	/**
+	 * Constructor
+	 * 
+	 * @param message
+	 *            the exception message
+	 * @param cause
+	 *            the cause of exception
+	 */
+	public MagnetLinkProviderException(final String message, final Throwable cause) {
+		super(message, cause);
+	}
+
 }

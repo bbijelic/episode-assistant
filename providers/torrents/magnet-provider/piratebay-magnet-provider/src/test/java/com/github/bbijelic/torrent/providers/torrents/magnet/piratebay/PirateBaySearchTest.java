@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.bbijelic.torrent.core.episodes.Episode;
+import com.github.bbijelic.torrent.core.torrents.magnet.SearchProviderException;
 import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.KeywordComparator;
 import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.MultiComparator;
@@ -33,7 +34,7 @@ public class PirateBaySearchTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PirateBaySearchTest.class);
 
 	@Test
-	public void searchTest() {
+	public void searchTest() throws SearchProviderException {
 
 		// Pirate bay search instance
 		PirateBaySearchProvider pirateBaySearch = new PirateBaySearchProvider();

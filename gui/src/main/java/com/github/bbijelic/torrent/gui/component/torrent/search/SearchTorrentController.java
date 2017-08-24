@@ -2,7 +2,6 @@ package com.github.bbijelic.torrent.gui.component.torrent.search;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.ServiceLoader;
 import java.util.function.Consumer;
@@ -11,20 +10,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.bbijelic.torrent.core.torrents.magnet.SearchProvider;
-import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 import com.github.bbijelic.torrent.gui.component.torrent.TorrentModel;
+import com.github.bbijelic.torrent.gui.component.torrent.search.service.TorrentSearchService;
+import com.github.bbijelic.torrent.gui.component.torrent.search.service.handler.OnFailedEventHandler;
+import com.github.bbijelic.torrent.gui.component.torrent.search.service.handler.OnRunningEventHandler;
+import com.github.bbijelic.torrent.gui.component.torrent.search.service.handler.OnSuccessEventHandler;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -81,9 +82,39 @@ public class SearchTorrentController implements Initializable {
 	private Button searchBtn;
 
 	/**
+	 * Search button getter
+	 * 
+	 * @return the search button
+	 */
+	public Button getSearchBtn() {
+		return searchBtn;
+	}
+
+	@FXML
+	private ProgressIndicator progressIndicator;
+
+	/**
+	 * Progress indicator getter
+	 * 
+	 * @return the progress indicator
+	 */
+	public ProgressIndicator getProgressIndicator() {
+		return progressIndicator;
+	}
+
+	/**
 	 * Result table observable list
 	 */
 	private ObservableList<TorrentModel> resultList = FXCollections.observableArrayList();
+
+	/**
+	 * Observable result list getter
+	 * 
+	 * @return the observable result list
+	 */
+	public ObservableList<TorrentModel> getResultList() {
+		return resultList;
+	}
 
 	@FXML
 	private void onSearchBtnAction(ActionEvent e) {
@@ -96,30 +127,9 @@ public class SearchTorrentController implements Initializable {
 
 		// Execute search on a new thread
 		TorrentSearchService searchService = new TorrentSearchService(searchInput, searchProvider);
-		searchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-
-			@Override
-			@SuppressWarnings("unchecked")
-			public void handle(WorkerStateEvent event) {
-
-				// Get result list from the event
-				List<Torrent> searchResultList = (List<Torrent>) event.getSource().getValue();
-
-				// Clear the table view items list before adding
-				resultList.clear();
-
-				// Iterate over all search result items and add to table view items
-				searchResultList.forEach(new Consumer<Torrent>() {
-
-					@Override
-					public void accept(Torrent torrent) {
-						resultList.add(new TorrentModel(torrent));
-					}
-
-				});
-
-			}
-		});
+		searchService.setOnRunning(new OnRunningEventHandler(this));
+		searchService.setOnSucceeded(new OnSuccessEventHandler(this));
+		searchService.setOnFailed(new OnFailedEventHandler(this));
 
 		// Start service
 		searchService.start();
@@ -128,13 +138,49 @@ public class SearchTorrentController implements Initializable {
 	@FXML
 	private TextField searchTxt;
 
+	/**
+	 * Search text getter
+	 * 
+	 * @return the search text
+	 */
+	public TextField getSearchTxt() {
+		return searchTxt;
+	}
+
 	@FXML
 	private TableView<TorrentModel> resultsTableView;
+
+	/**
+	 * Result table view getter
+	 * 
+	 * @return the result table view
+	 */
+	public TableView<TorrentModel> getResultsTableView() {
+		return resultsTableView;
+	}
 
 	@FXML
 	private ChoiceBox<SearchProvider> searchProviderChoice;
 
+	/**
+	 * Search provider choice getter
+	 * 
+	 * @return the search provider choice
+	 */
+	public ChoiceBox<SearchProvider> getSearchProviderChoice() {
+		return searchProviderChoice;
+	}
+
 	private ObservableList<SearchProvider> searchProviderItems;
+
+	/**
+	 * Search provider observable list getter
+	 * 
+	 * @return the search provider observable list getter
+	 */
+	public ObservableList<SearchProvider> getSearchProviderItems() {
+		return searchProviderItems;
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

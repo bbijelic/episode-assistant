@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.bbijelic.torrent.core.episodes.Episode;
 import com.github.bbijelic.torrent.core.torrents.magnet.SearchProvider;
+import com.github.bbijelic.torrent.core.torrents.magnet.SearchProviderException;
 import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 
 /**
@@ -59,7 +60,7 @@ public class PirateBaySearchProvider implements SearchProvider {
 	}
 
 	@Override
-	public List<Torrent> search(final Episode episode) {
+	public List<Torrent> search(final Episode episode) throws SearchProviderException {
 		LOGGER.debug("ENTER: search(); episode={}", episode.toString());
 
 		StringBuilder searchSlugBuilder = new StringBuilder();
@@ -73,7 +74,7 @@ public class PirateBaySearchProvider implements SearchProvider {
 	}
 
 	@Override
-	public List<Torrent> search(final String input) {
+	public List<Torrent> search(final String input) throws SearchProviderException {
 		// Resulting list
 		List<Torrent> resultSet = new ArrayList<Torrent>();
 
@@ -181,7 +182,7 @@ public class PirateBaySearchProvider implements SearchProvider {
 			});
 
 		} catch (IOException ioe) {
-			LOGGER.warn("Failed to get search result: " + ioe.getMessage());
+			throw new SearchProviderException(getName() + " search provider failed to return results", ioe);
 		}
 
 		return resultSet;
