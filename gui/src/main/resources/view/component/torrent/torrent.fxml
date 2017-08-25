@@ -40,7 +40,11 @@
 							<ImageView image="$searchBtnImage" />
 						</graphic>
 					</Button>
-					<Separator orientation="VERTICAL" />
+					<Separator orientation="VERTICAL">
+						<HBox.margin>
+							<Insets right="3.0" />
+						</HBox.margin>
+					</Separator>
 					<Button fx:id="startTorrentBtn" mnemonicParsing="false"
 						text="Start" disable="false" onAction="#onStartTorrentBtnAction">
 						<HBox.margin>
@@ -79,7 +83,7 @@
 					<Insets right="5.0" bottom="5.0" left="5.0" top="0.0" />
 				</VBox.margin>
 				<columns>
-					<TableColumn prefWidth="300.0" text="Torrent Name">
+					<TableColumn prefWidth="250.0" text="Torrent Name">
 						<cellValueFactory>
 							<PropertyValueFactory property="name" />
 						</cellValueFactory>
@@ -94,7 +98,7 @@
 							<PropertyValueFactory property="leechers" />
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn prefWidth="90.0" text="Uploaded By">
+					<TableColumn visible="false" prefWidth="90.0" text="Uploaded By">
 						<cellValueFactory>
 							<PropertyValueFactory property="uploadedBy" />
 						</cellValueFactory>
@@ -104,9 +108,19 @@
 							<PropertyValueFactory property="size" />
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn prefWidth="90.0" text="Status">
+					<TableColumn prefWidth="100.0" text="Status">
 						<cellValueFactory>
 							<PropertyValueFactory property="torrentState" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn prefWidth="150.0" text="Download Speed [kB/s]">
+						<cellValueFactory>
+							<PropertyValueFactory property="downloadSpeed" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn prefWidth="150.0" text="Upload Speed [kB/s]">
+						<cellValueFactory>
+							<PropertyValueFactory property="uploadSpeed" />
 						</cellValueFactory>
 					</TableColumn>
 					<TableColumn fx:id="progressColumn" prefWidth="230.0"

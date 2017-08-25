@@ -152,6 +152,26 @@ public class TorrentModel implements Torrent {
 		return torrentState;
 	}
 
+	private SimpleDoubleProperty downloadSpeed;
+
+	public void setDownloadSpeed(double downloadSpeed) {
+		this.downloadSpeed.set(downloadSpeed);
+	}
+
+	public SimpleDoubleProperty downloadSpeedProperty() {
+		return downloadSpeed;
+	}
+
+	private SimpleDoubleProperty uploadSpeed;
+
+	public void setUploadSpeed(double uploadSpeed) {
+		this.uploadSpeed.set(uploadSpeed);
+	}
+
+	public SimpleDoubleProperty uploadSpeedProperty() {
+		return uploadSpeed;
+	}
+
 	public TorrentModel(final Torrent torrent) {
 
 		this.torrent = torrent;
@@ -167,6 +187,8 @@ public class TorrentModel implements Torrent {
 		this.magnetLink = new SimpleStringProperty(torrent.getMagnetLink());
 		this.progress = new SimpleDoubleProperty(0);
 		this.torrentState = new SimpleObjectProperty<TorrentState>(TorrentState.FETCHING_METADATA);
+		this.downloadSpeed = new SimpleDoubleProperty(0);
+		this.uploadSpeed = new SimpleDoubleProperty(0);
 	}
 
 	@Override
@@ -198,6 +220,10 @@ public class TorrentModel implements Torrent {
 		builder.append(progress);
 		builder.append(", torrentState=");
 		builder.append(torrentState);
+		builder.append(", downloadSpeed=");
+		builder.append(downloadSpeed);
+		builder.append(", uploadSpeed=");
+		builder.append(uploadSpeed);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -206,6 +232,7 @@ public class TorrentModel implements Torrent {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((downloadSpeed == null) ? 0 : downloadSpeed.hashCode());
 		result = prime * result + ((infoHash == null) ? 0 : infoHash.hashCode());
 		result = prime * result + ((leechers == null) ? 0 : leechers.hashCode());
 		result = prime * result + ((magnetLink == null) ? 0 : magnetLink.hashCode());
@@ -216,6 +243,7 @@ public class TorrentModel implements Torrent {
 		result = prime * result + ((torrent == null) ? 0 : torrent.hashCode());
 		result = prime * result + ((torrentState == null) ? 0 : torrentState.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((uploadSpeed == null) ? 0 : uploadSpeed.hashCode());
 		result = prime * result + ((uploaded == null) ? 0 : uploaded.hashCode());
 		result = prime * result + ((uploadedBy == null) ? 0 : uploadedBy.hashCode());
 		result = prime * result + ((uploadedCalendar == null) ? 0 : uploadedCalendar.hashCode());
@@ -224,7 +252,89 @@ public class TorrentModel implements Torrent {
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.getTorrent().getInfoHash().equalsIgnoreCase(((TorrentModel) obj).getInfoHash());
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TorrentModel other = (TorrentModel) obj;
+		if (downloadSpeed == null) {
+			if (other.downloadSpeed != null)
+				return false;
+		} else if (!downloadSpeed.equals(other.downloadSpeed))
+			return false;
+		if (infoHash == null) {
+			if (other.infoHash != null)
+				return false;
+		} else if (!infoHash.equals(other.infoHash))
+			return false;
+		if (leechers == null) {
+			if (other.leechers != null)
+				return false;
+		} else if (!leechers.equals(other.leechers))
+			return false;
+		if (magnetLink == null) {
+			if (other.magnetLink != null)
+				return false;
+		} else if (!magnetLink.equals(other.magnetLink))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (progress == null) {
+			if (other.progress != null)
+				return false;
+		} else if (!progress.equals(other.progress))
+			return false;
+		if (seeders == null) {
+			if (other.seeders != null)
+				return false;
+		} else if (!seeders.equals(other.seeders))
+			return false;
+		if (size == null) {
+			if (other.size != null)
+				return false;
+		} else if (!size.equals(other.size))
+			return false;
+		if (torrent == null) {
+			if (other.torrent != null)
+				return false;
+		} else if (!torrent.equals(other.torrent))
+			return false;
+		if (torrentState == null) {
+			if (other.torrentState != null)
+				return false;
+		} else if (!torrentState.equals(other.torrentState))
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		if (uploadSpeed == null) {
+			if (other.uploadSpeed != null)
+				return false;
+		} else if (!uploadSpeed.equals(other.uploadSpeed))
+			return false;
+		if (uploaded == null) {
+			if (other.uploaded != null)
+				return false;
+		} else if (!uploaded.equals(other.uploaded))
+			return false;
+		if (uploadedBy == null) {
+			if (other.uploadedBy != null)
+				return false;
+		} else if (!uploadedBy.equals(other.uploadedBy))
+			return false;
+		if (uploadedCalendar == null) {
+			if (other.uploadedCalendar != null)
+				return false;
+		} else if (!uploadedCalendar.equals(other.uploadedCalendar))
+			return false;
+		return true;
 	}
 
 }

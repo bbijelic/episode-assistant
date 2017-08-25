@@ -16,6 +16,7 @@ import com.github.bbijelic.torrent.core.events.StopDownloadTorrentEvent;
 import com.github.bbijelic.torrent.core.events.TorrentFinishedEvent;
 import com.github.bbijelic.torrent.core.events.TorrentMetadataFetchedEvent;
 import com.github.bbijelic.torrent.core.events.TorrentProgressEvent;
+import com.github.bbijelic.torrent.core.events.TorrentSpeedEvent;
 import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 import com.github.bbijelic.torrent.core.torrents.magnet.TorrentState;
 import com.github.bbijelic.torrent.gui.component.torrent.search.SearchTorrentController;
@@ -158,6 +159,21 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 		LOGGER.debug("Handling TorrentFinishedEvent event: {}", e.toString());
 		// Update torrent state
 		updateTorrentState(e.getTorrent(), TorrentState.FINISHED);
+	}
+
+	@Subscribe
+	private void handleTorrentSpeedEvent(TorrentSpeedEvent e) {
+		LOGGER.debug("Handling TorrentSpeedEvent event: {}", e.toString());
+		// Torrent metadata fetched
+		itemsList.forEach(new Consumer<TorrentModel>() {
+			@Override
+			public void accept(TorrentModel torrentModel) {
+				if (torrentModel.getInfoHash().equalsIgnoreCase(e.getTorrent().getInfoHash())) {
+					torrentModel.setDownloadSpeed(e.getTorrentSpeed().getDownloadSpeed());
+					torrentModel.setUploadSpeed(e.getTorrentSpeed().getUploadSpeed());
+				}
+			}
+		});
 	}
 
 	private void updateTorrentState(final Torrent torrent, final TorrentState state) {
