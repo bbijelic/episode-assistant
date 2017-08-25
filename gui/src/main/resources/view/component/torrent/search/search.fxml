@@ -95,7 +95,7 @@
 			<children>
 				<HBox alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT">
 					<children>
-						<Button mnemonicParsing="false" text="Download">
+						<Button mnemonicParsing="false" text="Download" onAction="#onDownloadBtnAction">
 							<HBox.margin>
 								<Insets right="5.0" />
 							</HBox.margin>

@@ -12,6 +12,11 @@
 	<name>Episode Assistant : Providers : Torrents : Client : Bt</name>
 	<description>Episode Assistant Service Torrents Client Bt Module</description>
 
+	<properties>
+		<!-- Bt torrent client version -->
+		<bt.client.version>1.4.1</bt.client.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.github.bbijelic</groupId>
@@ -22,17 +27,17 @@
 		<dependency>
 			<groupId>com.github.atomashpolskiy</groupId>
 			<artifactId>bt-http-tracker-client</artifactId>
-			<version>1.4</version>
+			<version>${bt.client.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.atomashpolskiy</groupId>
 			<artifactId>bt-core</artifactId>
-			<version>1.4</version>
+			<version>${bt.client.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.atomashpolskiy</groupId>
 			<artifactId>bt-dht</artifactId>
-			<version>1.4</version>
+			<version>${bt.client.version}</version>
 		</dependency>
 
 		<dependency>

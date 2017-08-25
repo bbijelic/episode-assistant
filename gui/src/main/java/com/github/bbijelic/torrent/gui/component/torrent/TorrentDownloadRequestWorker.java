@@ -25,8 +25,6 @@ import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.Keyw
 import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.PopularityComparator;
 import com.github.bbijelic.torrent.providers.torrents.magnet.piratebay.sort.SizeComparator;
 
-import javafx.collections.ObservableList;
-
 /**
  * Torrent download request worker
  * 
@@ -43,18 +41,12 @@ public class TorrentDownloadRequestWorker implements Runnable {
 	private Episode episode;
 
 	/**
-	 * Observable list for the table view items
-	 */
-	private ObservableList<TorrentModel> itemsList;
-
-	/**
 	 * Constructor
 	 * 
 	 * @param itemsList
 	 * @param episode
 	 */
-	public TorrentDownloadRequestWorker(ObservableList<TorrentModel> itemsList, Episode episode) {
-		this.itemsList = itemsList;
+	public TorrentDownloadRequestWorker(Episode episode) {
 		this.episode = episode;
 	}
 
@@ -107,13 +99,11 @@ public class TorrentDownloadRequestWorker implements Runnable {
 
 					// Find the torrent (magnet link) for the episode
 					Optional<Torrent> torrentOptional = magnetLinkProvider.getResultItem(episode, comparatorList);
-					
-					if(torrentOptional.isPresent()) {
+
+					if (torrentOptional.isPresent()) {
 						// If torrent found
 						Torrent torrent = torrentOptional.get();
 						LOGGER.debug("Starting download: {}", torrent.toString());
-						// Add torrent to the table
-						itemsList.add(new TorrentModel(torrent));
 						// Post event to start downloading torrent
 						Events.getInstance().post(new StartDownloadTorrentEvent(torrent));
 					}

@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.bbijelic.torrent.core.events.Events;
+import com.github.bbijelic.torrent.core.events.TorrentFinishedEvent;
+import com.github.bbijelic.torrent.core.events.TorrentMetadataFetchedEvent;
 import com.github.bbijelic.torrent.core.events.TorrentProgressEvent;
 import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 
@@ -35,6 +37,8 @@ public class TorrentSessionStateConsumer implements Consumer<TorrentSessionState
 	 */
 	private BtClient client;
 
+	private boolean isMetadataFetched = false;
+
 	/**
 	 * Constructor
 	 * 
@@ -48,8 +52,15 @@ public class TorrentSessionStateConsumer implements Consumer<TorrentSessionState
 	@Override
 	public void accept(TorrentSessionState state) {
 
+		// Check for metadata flag and post event
+		if (!isMetadataFetched && !client.getSession().getTorrent().getName().isEmpty()) {
+			// Post event
+			Events.getInstance().post(new TorrentMetadataFetchedEvent(torrent));
+			isMetadataFetched = true;
+		}
+
 		// Torrent progress
-		double progress = 1 - ((double)state.getPiecesRemaining() / (double)state.getPiecesTotal());
+		double progress = 1 - ((double) state.getPiecesRemaining() / (double) state.getPiecesTotal());
 		LOGGER.info("Torrent progress: {} : {}, Remaining pieces: {}, Total pieces: {}", torrent.getName(), progress,
 				state.getPiecesRemaining(), state.getPiecesTotal());
 
@@ -58,6 +69,11 @@ public class TorrentSessionStateConsumer implements Consumer<TorrentSessionState
 
 		if (state.getPiecesRemaining() == 0) {
 			LOGGER.debug("Download completed, stopping: {}", torrent.toString());
+
+			// Post event
+			Events.getInstance().post(new TorrentFinishedEvent(torrent));
+
+			// Stop the client
 			client.stop();
 		}
 

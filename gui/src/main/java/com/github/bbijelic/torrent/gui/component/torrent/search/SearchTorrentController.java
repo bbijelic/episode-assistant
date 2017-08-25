@@ -9,6 +9,8 @@ import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.bbijelic.torrent.core.events.Events;
+import com.github.bbijelic.torrent.core.events.StartDownloadTorrentEvent;
 import com.github.bbijelic.torrent.core.torrents.magnet.SearchProvider;
 import com.github.bbijelic.torrent.gui.component.torrent.TorrentModel;
 import com.github.bbijelic.torrent.gui.component.torrent.search.service.TorrentSearchService;
@@ -136,6 +138,19 @@ public class SearchTorrentController implements Initializable {
 	}
 
 	@FXML
+	private void onDownloadBtnAction(ActionEvent e) {
+		LOGGER.debug("Handling onDownloadBtnAction event: {}", e.toString());
+
+		// Get selected torrent
+		TorrentModel torrentModel = resultsTableView.getSelectionModel().getSelectedItem();
+		if (torrentModel != null) {
+			// Post torrent download request event
+			Events.getInstance().post(new StartDownloadTorrentEvent(torrentModel.getTorrent()));
+			LOGGER.debug("Torrent download requested: {}", torrentModel.getTorrent().toString());
+		}
+	}
+
+	@FXML
 	private TextField searchTxt;
 
 	/**
@@ -195,7 +210,6 @@ public class SearchTorrentController implements Initializable {
 			@Override
 			public void accept(SearchProvider searchProvider) {
 				searchProviderItems.add(searchProvider);
-
 			}
 		});
 

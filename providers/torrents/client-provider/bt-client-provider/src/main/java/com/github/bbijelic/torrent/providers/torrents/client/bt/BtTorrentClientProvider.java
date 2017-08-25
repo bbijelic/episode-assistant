@@ -126,6 +126,7 @@ public class BtTorrentClientProvider implements TorrentClientProvider {
 	 * Handles StartDownloadTorrentEvent event
 	 * 
 	 * @param event
+	 *            the event
 	 */
 	@Subscribe
 	public void startDownloadTorrentEventHandler(StartDownloadTorrentEvent event) {
@@ -139,6 +140,13 @@ public class BtTorrentClientProvider implements TorrentClientProvider {
 		}
 	}
 
+	/**
+	 * Handles StopDownloadTorrentEvent event
+	 * 
+	 * @param event
+	 *            the event
+	 */
+	@Subscribe
 	public void stopDownloadTorrentEventHandler(StopDownloadTorrentEvent event) {
 		try {
 
@@ -152,17 +160,35 @@ public class BtTorrentClientProvider implements TorrentClientProvider {
 
 	@Override
 	public void startDownload(Torrent torrent) throws TorrentClientException {
-		// Client
-		BtClient client = Bt.client(btRuntime).storage(storage).magnet(torrent.getMagnetLink()).build();
-		clientMap.put(torrent.getInfoHash(), client);
-		client.startAsync(new TorrentSessionStateConsumer(torrent, client), 1000);
+		if (clientMap.containsKey(torrent.getInfoHash())) {
+			BtClient client = clientMap.get(torrent.getInfoHash());
+			if (!client.isStarted()) {
+				client.startAsync(new TorrentSessionStateConsumer(torrent, client), 1000);
+				LOGGER.debug("Starting torrent download: {}", torrent.toString());
+			} else {
+				LOGGER.warn("Torrent client already started for the torrent: {}", torrent.toString());
+			}
+
+		} else {
+			// Client
+			BtClient client = Bt.client(btRuntime).storage(storage).magnet(torrent.getMagnetLink()).build();
+			clientMap.put(torrent.getInfoHash(), client);
+			client.startAsync(new TorrentSessionStateConsumer(torrent, client), 1000);
+			LOGGER.debug("Created new bt client for the torrent: {}", torrent.toString());
+		}
+
 	}
 
 	@Override
 	public void stopDownload(Torrent torrent) throws TorrentClientException {
 		if (clientMap.containsKey(torrent.getInfoHash())) {
-			clientMap.get(torrent.getInfoHash()).stop();
-			clientMap.remove(torrent.getInfoHash());
+			BtClient client = clientMap.get(torrent.getInfoHash());
+			client.stop();
+			LOGGER.debug("Stopped torrent download: {}", torrent.toString());
+		} else {
+			LOGGER.warn("Torrent client does not know of: {}", torrent.toString());
+			throw new TorrentClientException(
+					"Torrent client does not know of torrent with hashinfo: " + torrent.getInfoHash());
 		}
 	}
 

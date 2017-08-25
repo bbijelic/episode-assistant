@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -14,35 +16,58 @@
 <?import javafx.scene.control.cell.ProgressBarTableCell?>
 
 <fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml">
+
+	<fx:define>
+		<Image fx:id="startBtnImage" url="@../../../imgs/start.png" />
+		<Image fx:id="stopBtnImage" url="@../../../imgs/stop.png" />
+		<Image fx:id="searchBtnImage" url="@../../../imgs/search.png" />
+		<Image fx:id="removeBtnImage" url="@../../../imgs/remove.png" />
+	</fx:define>
+
 	<VBox layoutX="477.0" layoutY="100.0" prefHeight="375.0"
 		prefWidth="892.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 		AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
 		<children>
 			<HBox>
 				<children>
-					<Button fx:id="searchTorrentBtn" mnemonicParsing="false" text="Search Torrent"
-						onAction="#onSearchTorrentBtnAction">
+					<Button fx:id="searchTorrentBtn" mnemonicParsing="false"
+						text="Search Torrent" onAction="#onSearchTorrentBtnAction">
 						<HBox.margin>
 							<Insets right="5.0" />
 						</HBox.margin>
+						<graphic>
+							<ImageView image="$searchBtnImage" />
+						</graphic>
 					</Button>
 					<Separator orientation="VERTICAL" />
 					<Button fx:id="startTorrentBtn" mnemonicParsing="false"
-						text="Start" onAction="#onStartTorrentBtnAction">
+						text="Start" disable="false" onAction="#onStartTorrentBtnAction">
 						<HBox.margin>
 							<Insets right="5.0" />
 						</HBox.margin>
+						<graphic>
+							<ImageView image="$startBtnImage" />
+						</graphic>
 					</Button>
-					<Button fx:id="stopTorrentBtn" mnemonicParsing="false" text="Stop" onAction="#onStopTorrentBtnAction">
+					<Button fx:id="stopTorrentBtn" styleClass="stop-button"
+						mnemonicParsing="false" text="Stop" disable="false"
+						onAction="#onStopTorrentBtnAction">
 						<HBox.margin>
 							<Insets right="5.0" />
 						</HBox.margin>
+						<graphic>
+							<ImageView image="$stopBtnImage" />
+						</graphic>
 					</Button>
 					<Button fx:id="removeTorrentBtn" mnemonicParsing="false"
-						text="Remove" onAction="#onRemoveTorrentBtnAction">
+						text="Remove" disable="false">
 						<HBox.margin>
 							<Insets right="5.0" />
 						</HBox.margin>
+						<graphic>
+							<ImageView image="$removeBtnImage" />
+						</graphic>
 					</Button>
 				</children>
 				<padding>
@@ -79,7 +104,13 @@
 							<PropertyValueFactory property="size" />
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn  fx:id="progressColumn" prefWidth="230.0" text="Progress">
+					<TableColumn prefWidth="90.0" text="Status">
+						<cellValueFactory>
+							<PropertyValueFactory property="torrentState" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn fx:id="progressColumn" prefWidth="230.0"
+						text="Progress">
 						<cellValueFactory>
 							<PropertyValueFactory property="progress" />
 						</cellValueFactory>

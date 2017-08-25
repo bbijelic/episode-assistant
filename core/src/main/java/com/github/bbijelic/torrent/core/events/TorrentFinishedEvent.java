@@ -3,12 +3,12 @@ package com.github.bbijelic.torrent.core.events;
 import com.github.bbijelic.torrent.core.torrents.magnet.Torrent;
 
 /**
- * Stop download torrent event
+ * Torrent finished event
  * 
  * @author Bojan Bijelic
  *
  */
-public class StopDownloadTorrentEvent {
+public class TorrentFinishedEvent {
 
 	/**
 	 * Torrent
@@ -24,20 +24,14 @@ public class StopDownloadTorrentEvent {
 		return torrent;
 	}
 
-	/**
-	 * Constructor
-	 * 
-	 * @param torrent
-	 *            the torrent
-	 */
-	public StopDownloadTorrentEvent(final Torrent torrent) {
+	public TorrentFinishedEvent(final Torrent torrent) {
 		this.torrent = torrent;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("StopDownloadTorrentEvent [torrent=");
+		builder.append("TorrentFinishedEvent [torrent=");
 		builder.append(torrent);
 		builder.append("]");
 		return builder.toString();
