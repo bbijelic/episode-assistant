@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="500" prefWidth="900" xmlns="http://javafx.com/javafx/8.0.111"
+<VBox prefHeight="786" prefWidth="1024" xmlns="http://javafx.com/javafx/8.0.111"
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.github.bbijelic.torrent.gui.component.torrent.search.SearchTorrentController">
 	<children>
@@ -74,14 +74,14 @@
 								<PropertyValueFactory property="leechers" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn prefWidth="90.0" text="Uploaded By">
-							<cellValueFactory>
-								<PropertyValueFactory property="uploadedBy" />
-							</cellValueFactory>
-						</TableColumn>
 						<TableColumn prefWidth="90.0" text="Size">
 							<cellValueFactory>
 								<PropertyValueFactory property="size" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn prefWidth="90.0" text="Uploaded By">
+							<cellValueFactory>
+								<PropertyValueFactory property="uploadedBy" />
 							</cellValueFactory>
 						</TableColumn>
 					</columns>

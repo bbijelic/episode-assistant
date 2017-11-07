@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.bbijelic.torrent.core.events.Events;
 import com.github.bbijelic.torrent.core.events.FindTorrentEvent;
+import com.github.bbijelic.torrent.core.events.SearchEpisodeEvent;
 import com.github.bbijelic.torrent.core.events.SelectedTorrentEvent;
 import com.github.bbijelic.torrent.core.events.StartDownloadTorrentEvent;
 import com.github.bbijelic.torrent.core.events.StopDownloadTorrentEvent;
@@ -124,7 +125,13 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 			}
 		});
 	}
-
+	
+	@Subscribe
+	private void handleSearchEpisodeEvent(SearchEpisodeEvent e) {
+		LOGGER.debug("Search request: {}", e.toString());
+		SearchTorrentController.showDialog(e.getEpisode().getSearchString());
+	}
+	
 	@Subscribe
 	private void handleDownloadRequestEvent(FindTorrentEvent e) {
 		LOGGER.debug("Download request: {}", e.toString());
@@ -191,7 +198,7 @@ public class TorrentComponent extends AnchorPane implements Initializable {
 	@FXML
 	private void onSearchTorrentBtnAction(ActionEvent e) {
 		LOGGER.debug("Handling onSearchTorrentBtnAction event: {}", e.toString());
-		SearchTorrentController.showDialog();
+		SearchTorrentController.showDialog(null);
 	}
 
 	@FXML

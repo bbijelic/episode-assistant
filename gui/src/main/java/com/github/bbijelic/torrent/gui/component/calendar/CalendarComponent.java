@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.bbijelic.torrent.core.events.Events;
 import com.github.bbijelic.torrent.core.events.FindTorrentEvent;
+import com.github.bbijelic.torrent.core.events.SearchEpisodeEvent;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -65,9 +66,7 @@ public class CalendarComponent extends AnchorPane implements Initializable {
 
 	@FXML
 	private void onClearCalendarBtn(ActionEvent e) {
-		for (int i = 0; i < calendarTableView.getItems().size(); i++) {
-			calendarTableView.getItems().clear();
-		}
+		calendarTableView.getItems().clear();
 	}
 
 	@FXML
@@ -76,6 +75,15 @@ public class CalendarComponent extends AnchorPane implements Initializable {
 		if (episodeModel != null) {
 			// Publish download request event
 			Events.getInstance().post(new FindTorrentEvent(episodeModel));
+		}
+	}
+	
+	@FXML
+	private void onContextSearchAction(ActionEvent e) {
+		EpisodeModel episodeModel = calendarTableView.getSelectionModel().getSelectedItem();
+		if (episodeModel != null) {
+			// Publish search request event
+			Events.getInstance().post(new SearchEpisodeEvent(episodeModel));
 		}
 	}
 

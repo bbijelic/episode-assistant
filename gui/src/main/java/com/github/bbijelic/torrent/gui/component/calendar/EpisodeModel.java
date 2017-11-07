@@ -186,4 +186,13 @@ public class EpisodeModel implements Episode {
 		return true;
 	}
 
+	@Override
+	public String getSearchString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(showName.getValue())
+			.append(" ").append("s").append(String.format("%02d", seasonNumber.get()))
+			.append("e").append(String.format("%02d", episodeNumber.get()));
+		return stringBuilder.toString();
+	}
+
 }

@@ -60,7 +60,7 @@ public class SearchTorrentController implements Initializable {
 	/**
 	 * Shows dialog
 	 */
-	public static void showDialog() {
+	public static void showDialog(final String searchInput) {
 		try {
 
 			// Load 'search torrent' fxml
@@ -75,6 +75,12 @@ public class SearchTorrentController implements Initializable {
 			stage.setScene(new Scene(fxmlLoader.load()));
 			stage.show();
 
+			if (searchInput != null) {
+				SearchTorrentController controller = (SearchTorrentController) fxmlLoader.getController();
+				controller.getSearchTxt().setText(searchInput);
+				controller.startSearch(searchInput);
+			}
+			
 		} catch (IOException ex) {
 			LOGGER.error(ex.getMessage(), ex);
 		}
@@ -118,12 +124,7 @@ public class SearchTorrentController implements Initializable {
 		return resultList;
 	}
 
-	@FXML
-	private void onSearchBtnAction(ActionEvent e) {
-		LOGGER.debug("Handling onSearchBtnAction event: {}", e.toString());
-
-		// Get search text
-		String searchInput = searchTxt.getText();
+	public void startSearch(final String searchInput) {
 		// Get search provider
 		SearchProvider searchProvider = searchProviderChoice.getValue();
 
@@ -135,6 +136,15 @@ public class SearchTorrentController implements Initializable {
 
 		// Start service
 		searchService.start();
+	}
+
+	@FXML
+	private void onSearchBtnAction(ActionEvent e) {
+		LOGGER.debug("Handling onSearchBtnAction event: {}", e.toString());
+
+		// Get search text
+		String searchInput = searchTxt.getText();
+		startSearch(searchInput);
 	}
 
 	@FXML

@@ -10,7 +10,6 @@ import com.github.bbijelic.torrent.core.torrents.magnet.TorrentState;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -60,14 +59,14 @@ public class TorrentModel implements Torrent {
 		return uploaded;
 	}
 
-	private SimpleLongProperty size;
+	private SimpleStringProperty size;
 
 	@Override
 	public long getSize() {
-		return size.get();
+		return 0L;
 	}
 
-	public SimpleLongProperty sizeProperty() {
+	public SimpleStringProperty sizeProperty() {
 		return size;
 	}
 
@@ -172,14 +171,21 @@ public class TorrentModel implements Torrent {
 		return uploadSpeed;
 	}
 
+	private String humanReadableByteCount(long bytes, boolean si) {
+		int unit = si ? 1000 : 1024;
+		if (bytes < unit)
+			return bytes + " B";
+		int exp = (int) (Math.log(bytes) / Math.log(unit));
+		String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
+		return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+	}
+
 	public TorrentModel(final Torrent torrent) {
-
 		this.torrent = torrent;
-
 		this.name = new SimpleStringProperty(torrent.getName());
 		this.type = new SimpleStringProperty(torrent.getType());
 		this.uploaded = new SimpleStringProperty(torrent.getUploaded().getTime().toString());
-		this.size = new SimpleLongProperty(torrent.getSize());
+		this.size = new SimpleStringProperty(humanReadableByteCount(torrent.getSize(), true));
 		this.uploadedBy = new SimpleStringProperty(torrent.getUploadedBy());
 		this.seeders = new SimpleIntegerProperty(torrent.getSeeders());
 		this.leechers = new SimpleIntegerProperty(torrent.getLeechers());

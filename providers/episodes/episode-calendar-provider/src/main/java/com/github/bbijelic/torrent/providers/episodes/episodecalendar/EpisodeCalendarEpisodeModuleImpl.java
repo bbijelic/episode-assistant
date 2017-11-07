@@ -88,6 +88,15 @@ public class EpisodeCalendarEpisodeModuleImpl extends ModuleImpl implements Epis
 	}
 
 	@Override
+	public String getSearchString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(showName)
+			.append(" ").append("s").append(String.format("%02d", seasonNumber))
+			.append("e").append(String.format("%02d", episodeNumber));
+		return stringBuilder.toString();
+	}
+	
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("EpisodeCalendarEpisodeModuleImpl [showName=").append(showName).append(", episodeName=")

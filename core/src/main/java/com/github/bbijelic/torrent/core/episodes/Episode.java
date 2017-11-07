@@ -43,4 +43,11 @@ public interface Episode {
 	 */
 	String getSummary();
 	
+	/**
+	 * Episode search string
+	 * 
+	 * @return the episode search string
+	 */
+	String getSearchString();
+	
 }

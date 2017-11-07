@@ -167,8 +167,10 @@ public class TorrentSessionStateConsumer implements Consumer<TorrentSessionState
 	 * Checks if torrent has all metadata
 	 */
 	private void checkMetadata() {
+		
+		
 		// Check for metadata flag and post event
-		if (!isMetadataFetched && !client.getSession().getTorrent().getName().isEmpty()) {
+		if (!isMetadataFetched && !torrent.getName().isEmpty()) {
 			// Post event
 			Events.getInstance().post(new TorrentMetadataFetchedEvent(torrent));
 			isMetadataFetched = true;

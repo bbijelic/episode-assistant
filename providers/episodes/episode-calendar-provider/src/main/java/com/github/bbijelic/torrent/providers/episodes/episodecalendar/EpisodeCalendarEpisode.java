@@ -39,4 +39,10 @@ public class EpisodeCalendarEpisode implements Episode {
 		return null;
 	}
 
+	@Override
+	public String getSearchString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -88,7 +88,8 @@
 			<contextMenu>
 				<ContextMenu>
 					<items>
-						<MenuItem text="Download Episode..." onAction="#onContextDownloadAction" />
+						<MenuItem text="Search Episode" onAction="#onContextSearchAction" />
+						<MenuItem disable="true" text="Download Episode..." onAction="#onContextDownloadAction" />
 						<MenuItem text="Remove Episode..." onAction="#onContextMenuRemoveAction" />
 					</items>
 				</ContextMenu>

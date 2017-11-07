@@ -50,6 +50,12 @@ public class EpisodeTestImpl implements Episode {
     public String getSummary() {
         return summary;
     }
+
+	@Override
+	public String getSearchString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
         
     
 }
